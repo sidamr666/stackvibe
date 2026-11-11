@@ -1,0 +1,26 @@
+{
+  "name": "stackvibe",
+  "private": true,
+  "version": "1.0.0",
+  "description": "StackVibe — independent software studio for Android apps, desktop SaaS and web tools.",
+  "type": "module",
+  "homepage": "https://stackvibe.fyi",
+  "scripts": {
+    "dev": "vite",
+    "build": "node scripts/generate-og.mjs && vite build",
+    "preview": "vite preview",
+    "og": "node scripts/generate-og.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.3.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.5",
+    "@vitejs/plugin-react": "^6.3.0",
+    "sharp": "^0.35.5",
+    "tailwindcss": "^4.3.5",
+    "vite": "^8.3.8"
+  }
+}
