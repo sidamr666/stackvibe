@@ -10,7 +10,7 @@ export default function PrivacyPage() {
       <GlowBackground />
       <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-base-950/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-4xl items-center justify-between px-5">
-          <a href="/" className="flex items-center gap-2.5" aria-label="StackVibe — home">
+          <a href="/" className="flex items-center gap-2.5" aria-label="StackVibe - home">
             <Logo className="size-8" />
             <span className="font-semibold tracking-tight text-white">
               Stack<span className="text-gradient">Vibe</span>
@@ -26,7 +26,7 @@ export default function PrivacyPage() {
       <main className="mx-auto max-w-3xl px-5 py-16 sm:py-24">
         <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">Privacy Policy</h1>
         <p className="mt-3 text-sm text-slate-500">
-          Last updated: {site.copyrightYear} · {site.domain}
+          Last updated: {site.copyrightYear} &middot; {site.domain}
         </p>
         <div className="mt-12 space-y-10">
           {privacySections.map((section) => (

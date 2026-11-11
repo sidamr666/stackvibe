@@ -32,7 +32,7 @@ export default function Header() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-5 sm:h-18 sm:px-8 lg:px-10">
-        <a href="#home" onClick={close} className="flex items-center gap-2.5 rounded-xl" aria-label="StackVibe â€” home">
+        <a href="#home" onClick={close} className="flex items-center gap-2.5 rounded-xl" aria-label="StackVibe - home">
           <Logo className="size-9" />
           <span className="text-[1.05rem] font-semibold tracking-tight text-white">
             Stack<span className="text-gradient">Vibe</span>

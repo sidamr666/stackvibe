@@ -21,7 +21,7 @@ export default function ProcessSection() {
                 <h3 className="mt-4 text-lg font-semibold text-white">{step.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-400">{step.text}</p>
                 {index < processSteps.length - 1 && (
-                  <span aria-hidden="true" className="absolute -right-3 top-8 hidden text-xl text-slate-600 lg:block">→</span>
+                  <span aria-hidden="true" className="absolute -right-3 top-8 hidden text-xl text-slate-600 lg:block">&rarr;</span>
                 )}
               </div>
             </Reveal>

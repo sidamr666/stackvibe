@@ -10,14 +10,14 @@ export default function Footer({ basePath = '' }) {
       <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 lg:px-10">
         <div className="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr_1.2fr]">
           <div>
-            <a href={resolve('#home')} className="flex items-center gap-2.5" aria-label="StackVibe â€” home">
+            <a href={resolve('#home')} className="flex items-center gap-2.5" aria-label="StackVibe - home">
               <Logo className="size-9" />
               <span className="text-lg font-semibold tracking-tight text-white">
                 Stack<span className="text-gradient">Vibe</span>
               </span>
             </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-400">
-              Independent software studio crafting Android apps, desktop SaaS and web tools â€” built clean,
+              Independent software studio crafting Android apps, desktop SaaS and web tools - built clean,
               shipped on time.
             </p>
             <div className="mt-5 flex gap-2.5">
@@ -68,11 +68,11 @@ export default function Footer({ basePath = '' }) {
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-6 sm:flex-row">
           <p className="text-xs text-slate-500">
-            Â© {site.copyrightYear} {site.name} Â· {site.domain}
+            &copy; {site.copyrightYear} {site.name} &middot; {site.domain}
           </p>
           <div className="flex items-center gap-5 text-xs text-slate-500">
             <a href="/privacy.html" className="transition-colors hover:text-white">Privacy Policy</a>
-            <span aria-hidden="true">Â·</span>
+            <span aria-hidden="true">&middot;</span>
             <span>Built with React & Tailwind CSS</span>
           </div>
           <a

@@ -48,7 +48,7 @@ const ogSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"
   <rect width="1200" height="630" fill="url(#svGrid)" />
   ${mark(564, 96, 72, 'svOgGrad')}
   <text x="600" y="292" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="112" font-weight="800" fill="url(#svOgGrad)">StackVibe</text>
-  <text x="600" y="356" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="400" fill="#cbd5e1">Android apps · Desktop SaaS · Web tools</text>
+  <text x="600" y="356" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="400" fill="#cbd5e1">Android apps - Desktop SaaS - Web tools</text>
   <g font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="600" fill="#e2e8f0">
     <rect x="386" y="410" width="110" height="46" rx="23" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff" stroke-opacity="0.14" />
     <text x="441" y="440" text-anchor="middle">Android</text>

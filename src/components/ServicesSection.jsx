@@ -19,7 +19,7 @@ export default function ServicesSection() {
           align="center"
           kicker="Services"
           title={<>What I can build <span className="text-gradient">for you</span></>}
-          description="Design, development, deployment and support — handled end-to-end. Pick a lane, or mix several into one project."
+          description="Design, development, deployment and support - handled end-to-end. Pick a lane, or mix several into one project."
         />
 
         <div className="mt-12 grid gap-6 md:grid-cols-2">

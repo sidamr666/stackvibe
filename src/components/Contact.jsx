@@ -11,7 +11,7 @@ const selectCls = `${inputCls} appearance-none pr-10 [&>option]:bg-base-900 [&>o
 
 export default function Contact() {
   const [copied, setCopied] = useState(false)
-  const [status, setStatus] = useState('idle') // idle | sending | sent | error
+  const [status, setStatus] = useState('idle')
 
   const copyEmail = async () => {
     try {
@@ -58,9 +58,9 @@ export default function Contact() {
     const name = String(values.name || 'there')
     const email = String(values.email || '')
     const message = String(values.message || '')
-    const subject = encodeURIComponent(`Project enquiry — ${name}`)
+    const subject = encodeURIComponent(`Project enquiry - ${name}`)
     const body = encodeURIComponent(
-      `Service: ${values.service || 'Not selected'}\nBudget: ${values.budget || 'Not selected'}\n\n${message}\n\n— ${name}${email ? ` (${email})` : ''}`,
+      `Service: ${values.service || 'Not selected'}\nBudget: ${values.budget || 'Not selected'}\n\n${message}\n\n- ${name}${email ? ` (${email})` : ''}`,
     )
     window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`
   }
@@ -109,7 +109,7 @@ export default function Contact() {
 
                 <div className="mt-8 flex items-center gap-2 text-sm text-slate-400">
                   <span className="size-1.5 animate-pulse rounded-full bg-emerald-400" />
-                  {site.availability.label} · {site.location}
+                  {site.availability.label} | {site.location}
                 </div>
 
                 <ul className="mt-6 space-y-2.5">
@@ -178,7 +178,7 @@ export default function Contact() {
                     id="contact-message"
                     name="message"
                     rows={5}
-                    placeholder="What are you trying to build? Platforms, features, timeline — anything helps."
+                    placeholder="What are you trying to build? Platforms, features, timeline - anything helps."
                     className={`${inputCls} resize-none`}
                     required
                   />
@@ -189,16 +189,16 @@ export default function Contact() {
                   disabled={status === 'sending'}
                   className="group inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 via-indigo-500 to-violet-500 px-5 py-3.5 text-sm font-semibold text-white shadow-[0_16px_40px_-16px_rgba(99,102,241,0.8)] transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  {status === 'sending' ? 'Sending…' : 'Request my project'}
+                  {status === 'sending' ? 'Sending...' : 'Request my project'}
                   {status !== 'sending' && <Icon name="arrowRight" className="size-4 transition-transform group-hover:translate-x-0.5" />}
                 </button>
 
                 <p aria-live="polite" role="status" className="min-h-5 text-center text-xs">
-                  {status === 'sent' && <span className="text-emerald-400">Message sent — I'll get back to you within 24h. ✅</span>}
+                  {status === 'sent' && <span className="text-emerald-400">Message sent - I'll get back to you within 24h.</span>}
                   {status === 'error' && <span className="text-amber-400">Something went wrong. Please email me directly at {site.email}.</span>}
                   {status === 'idle' && (
                     <span className="text-slate-600">
-                      {site.contact?.formEndpoint ? 'Sent securely to my inbox.' : 'Opens your email client — nothing is stored on this site.'}
+                      {site.contact?.formEndpoint ? 'Sent securely to my inbox.' : 'Opens your email client - nothing is stored on this site.'}
                     </span>
                   )}
                 </p>

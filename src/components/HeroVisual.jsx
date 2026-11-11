@@ -36,7 +36,6 @@ export default function HeroVisual() {
     >
       <div aria-hidden="true" className="absolute -inset-8 rounded-[2.5rem] bg-gradient-to-tr from-cyan-500/20 via-indigo-500/10 to-fuchsia-500/20 blur-2xl" />
 
-      {/* Main editor window */}
       <div className="glass relative overflow-hidden rounded-3xl shadow-[0_40px_90px_-40px_rgba(0,0,0,0.95)]">
         <div className="flex items-center gap-3 border-b border-white/[0.06] bg-white/[0.03] px-4 py-3">
           <span className="flex gap-1.5" aria-hidden="true">
@@ -75,13 +74,12 @@ export default function HeroVisual() {
         <div className="flex items-center justify-between border-t border-white/[0.06] bg-white/[0.02] px-4 py-2.5 text-[11px] text-slate-500">
           <span className="flex items-center gap-1.5">
             <Icon name="check" className="size-3.5 text-emerald-400" />
-            TypeScript · 0 errors
+            TypeScript &middot; 0 errors
           </span>
           <span>compiled in 24ms</span>
         </div>
       </div>
 
-      {/* Floating analytics card */}
       <div className="glass absolute -right-3 top-16 hidden w-52 rounded-2xl p-4 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.9)] animate-float sm:block lg:-right-6">
         <p className="text-[11px] font-medium uppercase tracking-wide text-slate-500">Monthly recurring</p>
         <p className="mt-1 text-2xl font-semibold tracking-tight text-white">$18.4k</p>
@@ -101,14 +99,13 @@ export default function HeroVisual() {
         </svg>
       </div>
 
-      {/* Floating deploy card */}
       <div className="glass absolute -bottom-6 -left-2 flex items-center gap-3 rounded-2xl p-3.5 pr-5 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.9)] animate-float-slow sm:-left-6">
         <span className="grid size-10 place-items-center rounded-xl bg-emerald-400/15 text-emerald-300">
           <Icon name="rocket" className="size-5" />
         </span>
         <div>
           <p className="text-sm font-medium text-white">Deployed to production</p>
-          <p className="mt-0.5 text-xs text-slate-500">v2.4.0 · 2 minutes ago</p>
+          <p className="mt-0.5 text-xs text-slate-500">v2.4.0 &middot; 2 minutes ago</p>
         </div>
         <span className="ml-2 h-1.5 w-16 overflow-hidden rounded-full bg-white/10" aria-hidden="true">
           <span className="block h-full w-3/4 rounded-full bg-gradient-to-r from-cyan-400 to-violet-500" />

@@ -1,5 +1,5 @@
 // ============================================================================
-// StackVibe â€” single source of truth.
+// StackVibe - single source of truth.
 // Every service, link, feature and string lives here.
 // Swap the placeholders for your real details and the whole site updates.
 // ============================================================================
@@ -11,12 +11,12 @@ export const site = {
   email: 'hello@stackvibe.fyi',
   tagline: 'Freelance software studio',
   description:
-    'Freelance software studio building Android apps, desktop SaaS and websites for founders and teams. From idea to launch â€” clean code, fixed quotes, real deadlines.',
-  location: 'Remote â€” worldwide',
+    'Freelance software studio building Android apps, desktop SaaS and websites for founders and teams. From idea to launch - clean code, fixed quotes, real deadlines.',
+  location: 'Remote - worldwide',
   availability: { label: 'Available for new projects', tone: 'emerald' },
   copyrightYear: 2026,
   contact: {
-    // Paste your Formspree form id to receive real messages (https://formspree.io â†’ New form).
+    // Paste your Formspree form id to receive real messages (https://formspree.io > New form).
     // Example: 'https://formspree.io/f/abcdwxyz'. Leave empty to open the visitor's mail client instead.
     formEndpoint: '',
   },
@@ -35,7 +35,7 @@ export const hero = {
   title: 'You bring the idea.',
   highlight: 'I build the product.',
   subtitle:
-    'Android apps, desktop SaaS and websites for founders and teams â€” designed, engineered and shipped by one senior full-stack developer who cares about the details.',
+    'Android apps, desktop SaaS and websites for founders and teams - designed, engineered and shipped by one senior full-stack developer who cares about the details.',
   primaryCta: { label: 'Start a project', href: '#contact' },
   secondaryCta: { label: 'See what I build', href: '#services' },
   badges: ['Fixed-price quotes', 'Weekly demos', 'Clean, maintainable code'],
@@ -78,7 +78,7 @@ export const services = [
     name: 'Android Apps',
     icon: 'phone',
     accent: 'cyan',
-    tagline: 'Native Android apps, polished and performant â€” from first sketch to Play Store launch.',
+    tagline: 'Native Android apps, polished and performant - from first sketch to Play Store launch.',
     features: [
       'Flutter & Kotlin (native)',
       'Play Store listing & release',
@@ -123,14 +123,14 @@ export const services = [
     name: 'Something Else',
     icon: 'sparkles',
     accent: 'emerald',
-    tagline: 'A game, a bot, a dashboard, an API, a prototype â€” tell me what you have in mind.',
+    tagline: 'A game, a bot, a dashboard, an API, a prototype - tell me what you have in mind.',
     features: [
       'Games & 3D (Unity)',
       'APIs & integrations',
       'Automation & scripts',
       'Tech consulting & audits',
     ],
-    cta: 'Letâ€™s talk about it',
+    cta: "Let's talk about it",
     href: '#contact',
   },
 ]
@@ -144,7 +144,7 @@ export const processSteps = [
   {
     step: '02',
     title: 'Proposal & quote',
-    text: 'A fixed-price quote, timeline and milestone plan â€” no surprises, no hourly clock.',
+    text: 'A fixed-price quote, timeline and milestone plan - no surprises, no hourly clock.',
   },
   {
     step: '03',
@@ -185,10 +185,9 @@ export const stackGroups = [
 ]
 
 export const socials = [
+  { id: 'email', label: 'Email', icon: 'mail', href: 'mailto:hello@stackvibe.fyi' },
   { id: 'facebook', label: 'Facebook', icon: 'facebook', href: '#' },
   { id: 'instagram', label: 'Instagram', icon: 'instagram', href: '#' },
-  
-  { id: 'email', label: 'Email', icon: 'mail', href: 'mailto:hello@stackvibe.fyi' },
 ]
 
 export const footerColumns = [
@@ -210,7 +209,7 @@ export const footerColumns = [
   },
 ]
 
-export const budgetOptions = ['Under $1,000', '$1,000 â€“ $5,000', '$5,000 â€“ $15,000', '$15,000+', 'Not sure yet']
+export const budgetOptions = ['Under $1,000', '$1,000 - $5,000', '$5,000 - $15,000', '$15,000+', 'Not sure yet']
 
 export const privacySections = [
   {
@@ -219,7 +218,7 @@ export const privacySections = [
   },
   {
     title: 'What we collect',
-    body: 'When you contact us, we collect the information you choose to send â€” typically your name, email address and project details. Our website is static and analytics-free by default, so we do not track your browsing behaviour.',
+    body: 'When you contact us, we collect the information you choose to send - typically your name, email address and project details. Our website is static and analytics-free by default, so we do not track your browsing behaviour.',
   },
   {
     title: 'How we use data',

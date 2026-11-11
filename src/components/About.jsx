@@ -27,13 +27,13 @@ export default function About() {
             <Reveal className="space-y-4 text-base leading-relaxed text-slate-400">
               <p>
                 I'm a full-stack engineer working with founders, startups and small teams to turn
-                ideas into real products — Android apps, desktop SaaS and websites. One person,
+                ideas into real products - Android apps, desktop SaaS and websites. One person,
                 end to end: architecture, UI, backend, deployment and monitoring.
               </p>
               <p>
                 The stack changes per project, but the standard never does: readable code, honest
                 performance budgets, and releases that land on schedule. You own everything at the
-                end — the repo, the accounts, the docs.
+                end - the repo, the accounts, the docs.
               </p>
             </Reveal>
 
