@@ -2,8 +2,8 @@ import GlowBackground from './components/GlowBackground.jsx'
 import Header from './components/Header.jsx'
 import Hero from './components/Hero.jsx'
 import TechMarquee from './components/TechMarquee.jsx'
-import AndroidSection from './components/AndroidSection.jsx'
-import DesktopSection from './components/DesktopSection.jsx'
+import ServicesSection from './components/ServicesSection.jsx'
+import ProcessSection from './components/ProcessSection.jsx'
 import About from './components/About.jsx'
 import Contact from './components/Contact.jsx'
 import Footer from './components/Footer.jsx'
@@ -22,8 +22,8 @@ export default function App() {
       <main id="home">
         <Hero />
         <TechMarquee />
-        <AndroidSection />
-        <DesktopSection />
+        <ServicesSection />
+        <ProcessSection />
         <About />
         <Contact />
       </main>

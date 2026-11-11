@@ -1,7 +1,7 @@
 // ============================================================================
 // StackVibe — single source of truth.
-// Swap any name, link, status, feature or social handle here and the whole
-// site updates automatically. No component edits required.
+// Every service, link, feature and string lives here.
+// Swap the placeholders for your real details and the whole site updates.
 // ============================================================================
 
 export const site = {
@@ -9,36 +9,41 @@ export const site = {
   domain: 'stackvibe.fyi',
   url: 'https://stackvibe.fyi',
   email: 'hello@stackvibe.fyi',
-  tagline: 'Independent software studio',
+  tagline: 'Freelance software studio',
   description:
-    'StackVibe designs and engineers Android apps, desktop SaaS and web tools — obsessing over performance, clean architecture, and interfaces that feel effortless.',
+    'Freelance software studio building Android apps, desktop SaaS and websites for founders and teams. From idea to launch — clean code, fixed quotes, real deadlines.',
   location: 'Remote — worldwide',
-  availability: { label: 'Available for select projects', tone: 'emerald' },
+  availability: { label: 'Available for new projects', tone: 'emerald' },
   copyrightYear: 2026,
+  contact: {
+    // Paste your Formspree form id to receive real messages (https://formspree.io → New form).
+    // Example: 'https://formspree.io/f/abcdwxyz'. Leave empty to open the visitor's mail client instead.
+    formEndpoint: '',
+  },
 }
 
 export const navLinks = [
   { id: 'home', label: 'Home', href: '#home' },
-  { id: 'android', label: 'Android Apps', href: '#android' },
-  { id: 'desktop', label: 'Desktop SaaS', href: '#desktop' },
+  { id: 'services', label: 'Services', href: '#services' },
+  { id: 'process', label: 'Process', href: '#process' },
   { id: 'about', label: 'About', href: '#about' },
   { id: 'contact', label: 'Contact', href: '#contact' },
 ]
 
 export const hero = {
-  eyebrow: 'Independent software studio',
-  title: 'Software that ships.',
-  highlight: 'Products that feel alive.',
+  eyebrow: 'Freelance software studio',
+  title: 'You bring the idea.',
+  highlight: 'I build the product.',
   subtitle:
-    'StackVibe engineers Android apps, desktop SaaS and fast web tools — pairing clean, maintainable code with interfaces people love to use.',
-  primaryCta: { label: 'View Android Apps', href: '#android' },
-  secondaryCta: { label: 'Get Desktop SaaS', href: '#desktop' },
-  badges: ['Design-led engineering', 'Performance budgets', 'Weekly releases'],
+    'Android apps, desktop SaaS and websites for founders and teams — designed, engineered and shipped by one senior full-stack developer who cares about the details.',
+  primaryCta: { label: 'Start a project', href: '#contact' },
+  secondaryCta: { label: 'See what I build', href: '#services' },
+  badges: ['Fixed-price quotes', 'Weekly demos', 'Clean, maintainable code'],
   stats: [
-    { value: '12+', label: 'Products shipped' },
-    { value: '4', label: 'Platforms' },
-    { value: '99.9%', label: 'Uptime target' },
-    { value: '<1.2s', label: 'Median load' },
+    { value: '30+', label: 'Projects delivered' },
+    { value: '12+', label: 'Happy clients' },
+    { value: '<24h', label: 'Response time' },
+    { value: '100%', label: 'On-time launches' },
   ],
 }
 
@@ -47,24 +52,6 @@ export const techStack = [
   'PostgreSQL', 'Redis', 'Firebase', 'Unity', 'C#', 'Docker', 'AWS',
   'Tailwind CSS', 'Figma',
 ]
-
-export const statusMeta = {
-  live: {
-    label: 'Live',
-    pill: 'border-emerald-400/25 bg-emerald-400/10 text-emerald-300',
-    dot: 'bg-emerald-400',
-  },
-  beta: {
-    label: 'Beta',
-    pill: 'border-amber-400/25 bg-amber-400/10 text-amber-300',
-    dot: 'bg-amber-400',
-  },
-  soon: {
-    label: 'In development',
-    pill: 'border-violet-400/25 bg-violet-400/10 text-violet-300',
-    dot: 'bg-violet-400',
-  },
-}
 
 export const accentMeta = {
   cyan: {
@@ -85,149 +72,89 @@ export const accentMeta = {
   },
 }
 
-export const androidApps = [
+export const services = [
   {
-    id: 'utility-tool-pro',
-    name: 'Utility Tool Pro',
-    category: 'Android · Utility suite',
-    status: 'live',
+    id: 'android-apps',
+    name: 'Android Apps',
+    icon: 'phone',
     accent: 'cyan',
-    icon: 'wrench',
-    featured: true,
-    tagline: 'A precision toolbox that lives in your pocket — instant, offline, and out of the way.',
-    description:
-      'File utilities, unit converters, QR scanner and quick actions built for speed. Everything runs offline-first with zero sign-up friction.',
+    tagline: 'Native Android apps, polished and performant — from first sketch to Play Store launch.',
     features: [
-      'Offline-first architecture — no account required',
-      'Material 3 adaptive theming and dynamic color',
-      'Home-screen quick actions and widgets',
+      'Flutter & Kotlin (native)',
+      'Play Store listing & release',
+      'Offline-first & Material 3 design',
+      'Push notifications & analytics',
     ],
-    tech: ['Kotlin', 'Jetpack Compose', 'Room'],
-    metrics: [
-      { label: 'Installs', value: '50k+' },
-      { label: 'Rating', value: '4.8★' },
-    ],
-    cta: 'Get it on Google Play',
-    href: '#',
-    preview: 'phone',
+    cta: 'Request an app',
+    href: '#contact',
   },
   {
-    id: 'mobile-app-studio',
-    name: 'Mobile App Studio',
-    category: 'Android · Productivity',
-    status: 'beta',
-    accent: 'violet',
-    icon: 'layers',
-    featured: false,
-    tagline: 'Sketch, preview and iterate on mobile UI concepts directly from your device.',
-    features: ['Drag-and-drop component canvas', 'Realtime preview with live data', 'Export to Flutter & Compose'],
-    tech: ['Flutter', 'Dart', 'Hive'],
-    cta: 'Join the beta',
-    href: '#',
-    preview: 'none',
-  },
-  {
-    id: 'everyday-utilities',
-    name: 'Everyday Utilities',
-    category: 'Android · Tools',
-    status: 'live',
-    accent: 'emerald',
-    icon: 'grid',
-    featured: false,
-    tagline: 'A lightweight collection of the small tools you reach for every single day.',
-    features: ['Barcode & QR scanning', 'Unit & currency converter', 'Privacy-friendly — data stays local'],
-    tech: ['Kotlin', 'Compose Multiplatform', 'SQLite'],
-    cta: 'View on Google Play',
-    href: '#',
-    preview: 'none',
-  },
-  {
-    id: 'pocket-ledger',
-    name: 'Pocket Ledger',
-    category: 'Android · Finance',
-    status: 'soon',
+    id: 'desktop-saas',
+    name: 'Desktop SaaS',
+    icon: 'box',
     accent: 'indigo',
-    icon: 'chart',
-    featured: false,
-    tagline: 'Fast, private cash-flow tracking with zero cloud lock-in.',
-    features: ['One-tap expense entry', 'Local encrypted storage', 'CSV & spreadsheet export'],
-    tech: ['Flutter', 'SQLCipher', 'Riverpod'],
-    cta: 'Notify me',
-    href: '#',
-    preview: 'none',
+    tagline: 'Cross-platform desktop tools for Windows, macOS and Linux that feel native and fast.',
+    features: [
+      'Electron / Tauri clients',
+      'Auth, billing & subscriptions',
+      'Realtime sync & offline mode',
+      'Auto-updates & crash reporting',
+    ],
+    cta: 'Request desktop SaaS',
+    href: '#contact',
+  },
+  {
+    id: 'websites-webapps',
+    name: 'Websites & Web Apps',
+    icon: 'code',
+    accent: 'violet',
+    tagline: 'Fast, SEO-ready marketing sites and full web apps that load in under a second.',
+    features: [
+      'React / Next.js frontends',
+      'Node.js APIs & databases',
+      'SEO, analytics & speed budgets',
+      'Deployment & monitoring',
+    ],
+    cta: 'Request a website',
+    href: '#contact',
+  },
+  {
+    id: 'something-else',
+    name: 'Something Else',
+    icon: 'sparkles',
+    accent: 'emerald',
+    tagline: 'A game, a bot, a dashboard, an API, a prototype — tell me what you have in mind.',
+    features: [
+      'Games & 3D (Unity)',
+      'APIs & integrations',
+      'Automation & scripts',
+      'Tech consulting & audits',
+    ],
+    cta: 'Let’s talk about it',
+    href: '#contact',
   },
 ]
 
-export const desktopProducts = [
+export const processSteps = [
   {
-    id: 'saas-productivity-suite',
-    name: 'SaaS Productivity Suite',
-    category: 'Desktop SaaS',
-    status: 'live',
-    accent: 'cyan',
-    icon: 'box',
-    featured: true,
-    tagline: 'Workspaces, tasks and time tracking in one fast desktop client — with a web app that syncs.',
-    description:
-      'Built for small teams and solo founders who want focus without the bloat. Native desktop performance with realtime collaboration and offline mode.',
-    features: [
-      'Realtime sync with offline-first desktop client',
-      'Keyboard-driven command palette',
-      'End-to-end encrypted workspaces',
-    ],
-    tech: ['Electron', 'React', 'PostgreSQL', 'Redis'],
-    metrics: [
-      { label: 'Active teams', value: '1.2k' },
-      { label: 'Uptime', value: '99.98%' },
-    ],
-    cta: 'Start free trial',
-    href: '#',
-    preview: 'window',
+    step: '01',
+    title: 'Brief & scope',
+    text: 'You explain the idea. I ask the right questions and turn it into a clear, written scope.',
   },
   {
-    id: 'insight-dashboard',
-    name: 'Insight Dashboard',
-    category: 'Web + Desktop · Analytics',
-    status: 'beta',
-    accent: 'violet',
-    icon: 'chart',
-    featured: false,
-    tagline: 'Product metrics that answer questions, not just show numbers.',
-    features: ['Funnel & retention out of the box', 'SQL playground for power users', 'Shareable live dashboards'],
-    tech: ['Next.js', 'ClickHouse', 'TypeScript'],
-    cta: 'Request access',
-    href: '#',
-    preview: 'none',
+    step: '02',
+    title: 'Proposal & quote',
+    text: 'A fixed-price quote, timeline and milestone plan — no surprises, no hourly clock.',
   },
   {
-    id: 'deploy-pilot',
-    name: 'Deploy Pilot',
-    category: 'Desktop SaaS',
-    status: 'soon',
-    accent: 'indigo',
-    icon: 'rocket',
-    featured: false,
-    tagline: 'Release orchestration for small teams — preview, approve, ship.',
-    features: ['One-click preview environments', 'Approval gates & rollbacks', 'Audit log for every release'],
-    tech: ['Tauri', 'Rust', 'Docker'],
-    cta: 'Join waitlist',
-    href: '#',
-    preview: 'none',
+    step: '03',
+    title: 'Build in sprints',
+    text: 'Weekly demos and a shared repo. You see working progress every step of the way.',
   },
   {
-    id: 'api-workbench',
-    name: 'API Workbench',
-    category: 'Web Tool',
-    status: 'live',
-    accent: 'emerald',
-    icon: 'code',
-    featured: false,
-    tagline: 'A fast, keyboard-first REST client that lives in your browser.',
-    features: ['Environment variables & secrets', 'Collection runner & tests', 'Generates client code snippets'],
-    tech: ['React', 'Vite', 'Web Workers'],
-    cta: 'Open the tool',
-    href: '#',
-    preview: 'none',
+    step: '04',
+    title: 'Launch & support',
+    text: 'Deployment, handover docs and a support window after launch. I stick around.',
   },
 ]
 
@@ -244,8 +171,8 @@ export const principles = [
   },
   {
     icon: 'shield',
-    title: 'Design and engineering as one',
-    text: 'Figma to production without the gap — the interface is part of the architecture.',
+    title: 'Your product, your code',
+    text: 'You own the repo, the accounts and the docs. No lock-in, ever.',
   },
 ]
 
@@ -266,43 +193,45 @@ export const socials = [
 
 export const footerColumns = [
   {
-    title: 'Products',
+    title: 'Services',
     links: [
-      { label: 'Android Apps', href: '#android' },
-      { label: 'Desktop SaaS', href: '#desktop' },
-      { label: 'Web Tools', href: '#desktop' },
+      { label: 'Android Apps', href: '#services' },
+      { label: 'Desktop SaaS', href: '#services' },
+      { label: 'Websites & Web Apps', href: '#services' },
     ],
   },
   {
     title: 'Explore',
     links: [
+      { label: 'Process', href: '#process' },
       { label: 'About', href: '#about' },
-      { label: 'Contact', href: '#contact' },
       { label: 'Privacy Policy', href: '/privacy.html' },
     ],
   },
 ]
 
+export const budgetOptions = ['Under $1,000', '$1,000 – $5,000', '$5,000 – $15,000', '$15,000+', 'Not sure yet']
+
 export const privacySections = [
   {
     title: 'Overview',
-    body: 'StackVibe (stackvibe.fyi) is an independent software studio. This policy explains what data our Android apps, desktop SaaS and web tools may collect, and how it is used. In short: we collect as little as possible and never sell personal data.',
+    body: 'StackVibe (stackvibe.fyi) is an independent freelance software studio. This policy explains what data our website and projects may collect, and how it is used. In short: we collect as little as possible and never sell personal data.',
   },
   {
     title: 'What we collect',
-    body: 'Our websites are static and analytics-free by default. Where a product requires an account (for sync or collaboration), we collect only the minimum needed to provide the service — typically an email address, display name, and the content you create. Some Android apps store all data locally on your device, in which case we never receive it.',
+    body: 'When you contact us, we collect the information you choose to send — typically your name, email address and project details. Our website is static and analytics-free by default, so we do not track your browsing behaviour.',
   },
   {
     title: 'How we use data',
-    body: 'We use data strictly to operate, maintain and improve the product you are using, to respond to support requests, and to meet legal obligations. We do not sell, rent or trade personal data to third parties.',
+    body: 'We use your data strictly to respond to your enquiry, provide the services you request, and meet legal obligations. We do not sell, rent or trade personal data to third parties.',
   },
   {
     title: 'Cookies & analytics',
-    body: 'This marketing website does not use third-party tracking cookies. If optional privacy-friendly analytics are enabled in the future, they will be disclosed here and used only in aggregate form.',
+    body: 'This website does not use third-party tracking cookies. If optional privacy-friendly analytics are enabled in the future, they will be disclosed here and used only in aggregate form.',
   },
   {
     title: 'Your rights',
-    body: 'Depending on your region, you may have the right to access, correct or delete your personal data, and to object to or restrict certain processing. Contact hello@stackvibe.fyi to exercise any of these rights, and we will respond within a reasonable timeframe.',
+    body: 'Depending on your region, you may have the right to access, correct or delete your personal data, and to object to or restrict certain processing. Contact hello@stackvibe.fyi to exercise any of these rights.',
   },
   {
     title: 'Contact',

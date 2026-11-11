@@ -8,7 +8,7 @@ const snippet = [
   [{ t: 'export', c: 'text-fuchsia-400' }, { t: ' const ', c: 'text-slate-400' }, { t: 'manifest', c: 'text-emerald-300' }, { t: ' = {', c: 'text-slate-400' }],
   [{ t: '  philosophy', c: 'text-white' }, { t: ': ', c: 'text-slate-400' }, { t: "'clean > clever'", c: 'text-amber-300' }, { t: ',', c: 'text-slate-400' }],
   [{ t: '  performance', c: 'text-white' }, { t: ': ', c: 'text-slate-400' }, { t: 'true', c: 'text-violet-300' }, { t: ',', c: 'text-slate-400' }],
-  [{ t: '  shipping', c: 'text-white' }, { t: ': ', c: 'text-slate-400' }, { t: "'weekly'", c: 'text-cyan-300' }, { t: ',', c: 'text-slate-400' }],
+  [{ t: '  ownership', c: 'text-white' }, { t: ': ', c: 'text-slate-400' }, { t: "'yours'", c: 'text-cyan-300' }, { t: ',', c: 'text-slate-400' }],
   [{ t: '} satisfies ', c: 'text-slate-400' }, { t: 'Studio', c: 'text-sky-300' }],
 ]
 
@@ -18,22 +18,22 @@ export default function About() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
         <SectionHeading
           kicker="About StackVibe"
-          title={<>Full-stack engineering, <span className="text-gradient">obsessively refined</span></>}
-          description="An independent studio that treats every project — an app, a desktop client, a web tool — like a product people will rely on every day."
+          title={<>One senior developer, <span className="text-gradient">your whole product</span></>}
+          description="No agencies, no hand-offs, no project-manager telephone. You work directly with the person writing the code."
         />
 
         <div className="mt-12 grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
           <div>
             <Reveal className="space-y-4 text-base leading-relaxed text-slate-400">
               <p>
-                StackVibe is the studio behind a growing family of Android applications, cross-platform
-                desktop SaaS and focused web tools. I design, build and ship the whole thing — from
-                architecture and UI to deployment and monitoring.
+                I'm a full-stack engineer working with founders, startups and small teams to turn
+                ideas into real products — Android apps, desktop SaaS and websites. One person,
+                end to end: architecture, UI, backend, deployment and monitoring.
               </p>
               <p>
                 The stack changes per project, but the standard never does: readable code, honest
-                performance budgets, accessible interfaces, and releases that happen on a schedule rather
-                than “eventually”.
+                performance budgets, and releases that land on schedule. You own everything at the
+                end — the repo, the accounts, the docs.
               </p>
             </Reveal>
 
@@ -87,7 +87,7 @@ export default function About() {
 
         <Reveal delay={80}>
           <div className="glass mt-8 rounded-3xl p-6 sm:p-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Engineering stack</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Technologies I work with</p>
             <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
               {stackGroups.map((group) => (
                 <div key={group.label}>

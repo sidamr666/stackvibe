@@ -70,11 +70,11 @@ export default function MobileNav({ open, onClose, activeId }) {
         </nav>
 
         <a
-          href="#android"
+          href="#contact"
           onClick={onClose}
           className="mt-5 flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-cyan-400 to-indigo-500 px-4 py-3.5 text-sm font-semibold text-base-950"
         >
-          Explore Apps
+          Start a project
           <Icon name="arrowRight" className="size-4" />
         </a>
 

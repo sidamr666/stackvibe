@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { site, socials } from '../data/site.js'
+import { budgetOptions, services, site, socials } from '../data/site.js'
 import SectionHeading from './SectionHeading.jsx'
 import Reveal from './Reveal.jsx'
 import Icon from './Icons.jsx'
@@ -7,8 +7,11 @@ import Icon from './Icons.jsx'
 const inputCls =
   'w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-slate-600 transition-colors focus:border-cyan-400/40 focus:bg-white/[0.05] focus:outline-none'
 
+const selectCls = `${inputCls} appearance-none pr-10 [&>option]:bg-base-900 [&>option]:text-white`
+
 export default function Contact() {
   const [copied, setCopied] = useState(false)
+  const [status, setStatus] = useState('idle') // idle | sending | sent | error
 
   const copyEmail = async () => {
     try {
@@ -25,14 +28,40 @@ export default function Contact() {
     window.setTimeout(() => setCopied(false), 2000)
   }
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    const name = String(data.get('name') || 'there')
-    const email = String(data.get('email') || '')
-    const message = String(data.get('message') || '')
+    const form = event.currentTarget
+    const data = new FormData(form)
+    const values = Object.fromEntries(data.entries())
+    const endpoint = site.contact?.formEndpoint?.trim()
+
+    if (endpoint) {
+      setStatus('sending')
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(values),
+        })
+        if (res.ok) {
+          setStatus('sent')
+          form.reset()
+        } else {
+          setStatus('error')
+        }
+      } catch {
+        setStatus('error')
+      }
+      return
+    }
+
+    const name = String(values.name || 'there')
+    const email = String(values.email || '')
+    const message = String(values.message || '')
     const subject = encodeURIComponent(`Project enquiry — ${name}`)
-    const body = encodeURIComponent(`${message}\n\n— ${name}${email ? ` (${email})` : ''}`)
+    const body = encodeURIComponent(
+      `Service: ${values.service || 'Not selected'}\nBudget: ${values.budget || 'Not selected'}\n\n${message}\n\n— ${name}${email ? ` (${email})` : ''}`,
+    )
     window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`
   }
 
@@ -42,8 +71,8 @@ export default function Contact() {
         <SectionHeading
           align="center"
           kicker="Contact"
-          title={<>Let's build something <span className="text-gradient">worth shipping</span></>}
-          description="Have an app idea, a SaaS concept or a web tool you want built right? Tell me about it — I reply fast, with honest scoping and a plan."
+          title={<>Tell me about <span className="text-gradient">your project</span></>}
+          description="No obligations, no pressure. Send a few details and I'll reply within 24 hours with honest feedback and a plan."
         />
 
         <Reveal delay={120}>
@@ -51,12 +80,12 @@ export default function Contact() {
             <div aria-hidden="true" className="absolute -right-24 -top-24 size-72 rounded-full bg-cyan-500/10 blur-[100px]" />
             <div aria-hidden="true" className="absolute -bottom-24 -left-24 size-72 rounded-full bg-violet-500/10 blur-[100px]" />
 
-            <div className="relative grid gap-10 lg:grid-cols-[1fr_0.9fr]">
+            <div className="relative grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
               <div>
-                <h3 className="text-2xl font-semibold tracking-tight text-white">Start a conversation</h3>
-                <p className="mt-3 max-w-md text-base leading-relaxed text-slate-400">
-                  Prefer email? Reach me directly at the address below, or use the form and it opens your
-                  mail client pre-filled.
+                <h3 className="text-2xl font-semibold tracking-tight text-white">Let's start the conversation</h3>
+                <p className="mt-3 text-base leading-relaxed text-slate-400">
+                  Prefer email? Write to me directly, or copy the address below. Every message lands
+                  straight in my inbox.
                 </p>
 
                 <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -83,7 +112,16 @@ export default function Contact() {
                   {site.availability.label} · {site.location}
                 </div>
 
-                <div className="mt-6 flex gap-2.5">
+                <ul className="mt-6 space-y-2.5">
+                  {['Fixed-price quote within 48h', 'Free initial consultation', 'NDA available on request'].map((item) => (
+                    <li key={item} className="flex items-center gap-2 text-sm text-slate-400">
+                      <Icon name="check" className="size-4 text-emerald-400" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-8 flex gap-2.5">
                   {socials.map((social) => (
                     <a
                       key={social.id}
@@ -107,21 +145,63 @@ export default function Contact() {
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label htmlFor="contact-email" className="text-xs font-medium text-slate-400">Email</label>
-                    <input id="contact-email" name="email" type="email" autoComplete="email" placeholder="you@example.com" className={inputCls} />
+                    <input id="contact-email" name="email" type="email" autoComplete="email" placeholder="you@example.com" className={inputCls} required />
                   </div>
                 </div>
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="contact-message" className="text-xs font-medium text-slate-400">Message</label>
-                  <textarea id="contact-message" name="message" rows={4} placeholder="Tell me about the project..." className={`${inputCls} resize-none`} />
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="relative flex flex-col gap-1.5">
+                    <label htmlFor="contact-service" className="text-xs font-medium text-slate-400">What do you need?</label>
+                    <select id="contact-service" name="service" className={selectCls} defaultValue="">
+                      <option value="" disabled>Choose a service</option>
+                      {services.map((service) => (
+                        <option key={service.id} value={service.name}>{service.name}</option>
+                      ))}
+                    </select>
+                    <Icon name="chevronUp" className="pointer-events-none absolute bottom-3.5 right-3.5 size-4 rotate-180 text-slate-500" />
+                  </div>
+                  <div className="relative flex flex-col gap-1.5">
+                    <label htmlFor="contact-budget" className="text-xs font-medium text-slate-400">Budget</label>
+                    <select id="contact-budget" name="budget" className={selectCls} defaultValue="">
+                      <option value="" disabled>Select a range</option>
+                      {budgetOptions.map((option) => (
+                        <option key={option} value={option}>{option}</option>
+                      ))}
+                    </select>
+                    <Icon name="chevronUp" className="pointer-events-none absolute bottom-3.5 right-3.5 size-4 rotate-180 text-slate-500" />
+                  </div>
                 </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="contact-message" className="text-xs font-medium text-slate-400">Project details</label>
+                  <textarea
+                    id="contact-message"
+                    name="message"
+                    rows={5}
+                    placeholder="What are you trying to build? Platforms, features, timeline — anything helps."
+                    className={`${inputCls} resize-none`}
+                    required
+                  />
+                </div>
+
                 <button
                   type="submit"
-                  className="group inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 via-indigo-500 to-violet-500 px-5 py-3.5 text-sm font-semibold text-white shadow-[0_16px_40px_-16px_rgba(99,102,241,0.8)] transition-transform hover:-translate-y-0.5"
+                  disabled={status === 'sending'}
+                  className="group inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 via-indigo-500 to-violet-500 px-5 py-3.5 text-sm font-semibold text-white shadow-[0_16px_40px_-16px_rgba(99,102,241,0.8)] transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  Send message
-                  <Icon name="arrowRight" className="size-4 transition-transform group-hover:translate-x-0.5" />
+                  {status === 'sending' ? 'Sending…' : 'Request my project'}
+                  {status !== 'sending' && <Icon name="arrowRight" className="size-4 transition-transform group-hover:translate-x-0.5" />}
                 </button>
-                <p className="text-center text-xs text-slate-600">Opens your email client — no data is stored on this site.</p>
+
+                <p aria-live="polite" role="status" className="min-h-5 text-center text-xs">
+                  {status === 'sent' && <span className="text-emerald-400">Message sent — I'll get back to you within 24h. ✅</span>}
+                  {status === 'error' && <span className="text-amber-400">Something went wrong. Please email me directly at {site.email}.</span>}
+                  {status === 'idle' && (
+                    <span className="text-slate-600">
+                      {site.contact?.formEndpoint ? 'Sent securely to my inbox.' : 'Opens your email client — nothing is stored on this site.'}
+                    </span>
+                  )}
+                </p>
               </form>
             </div>
           </div>

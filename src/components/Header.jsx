@@ -32,7 +32,7 @@ export default function Header() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-5 sm:h-18 sm:px-8 lg:px-10">
-        <a href="#home" onClick={close} className="flex items-center gap-2.5 rounded-xl" aria-label="StackVibe — home">
+        <a href="#home" onClick={close} className="flex items-center gap-2.5 rounded-xl" aria-label="StackVibe â€” home">
           <Logo className="size-9" />
           <span className="text-[1.05rem] font-semibold tracking-tight text-white">
             Stack<span className="text-gradient">Vibe</span>
@@ -59,10 +59,10 @@ export default function Header() {
 
         <div className="flex items-center gap-2.5">
           <a
-            href="#android"
+            href="#contact"
             className="group hidden items-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 to-indigo-500 px-4 py-2.5 text-sm font-semibold text-base-950 shadow-[0_8px_30px_-10px_rgba(34,211,238,0.7)] transition-transform hover:-translate-y-0.5 sm:inline-flex"
           >
-            Explore Apps
+            Start a project
             <Icon name="arrowRight" className="size-4 transition-transform group-hover:translate-x-0.5" />
           </a>
           <button
