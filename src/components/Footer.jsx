@@ -1,9 +1,11 @@
 import { footerColumns, site, socials } from '../data/site.js'
+import { useRequestModal } from '../context/RequestModalContext.jsx'
 import Logo from './Logo.jsx'
 import Icon from './Icons.jsx'
 
 export default function Footer({ basePath = '' }) {
   const resolve = (href) => (href.startsWith('#') ? `${basePath}${href}` : href)
+  const openRequest = useRequestModal()
 
   return (
     <footer className="relative border-t border-line bg-surface-2/60">
@@ -56,13 +58,14 @@ export default function Footer({ basePath = '' }) {
             <p className="mt-4 text-sm leading-relaxed text-slate-600">
               Have an idea worth building? We would love to hear about it.
             </p>
-            <a
-              href={resolve('#contact')}
+            <button
+              type="button"
+              onClick={() => openRequest()}
               className="mt-4 inline-flex items-center gap-2 rounded-full bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-slate-800"
             >
               Get in touch
               <Icon name="arrowRight" className="size-4" />
-            </a>
+            </button>
           </div>
         </div>
 

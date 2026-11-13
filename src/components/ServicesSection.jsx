@@ -1,5 +1,6 @@
 import { accentMeta, services } from '../data/site.js'
 import { handlePointerGlow } from '../hooks/usePointerGlow.js'
+import { useRequestModal } from '../context/RequestModalContext.jsx'
 import SectionHeading from './SectionHeading.jsx'
 import Reveal from './Reveal.jsx'
 import Icon from './Icons.jsx'
@@ -14,6 +15,7 @@ const accentText = {
 }
 
 export default function ServicesSection() {
+  const openRequest = useRequestModal()
   return (
     <section id="services" className="relative scroll-mt-24 py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
@@ -52,13 +54,14 @@ export default function ServicesSection() {
                   </ul>
 
                   <div className="mt-auto pt-6">
-                    <a
-                      href={service.href}
+                    <button
+                      type="button"
+                      onClick={() => openRequest({ serviceId: service.id })}
                       className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-slate-800"
                     >
                       {service.cta}
                       <Icon name="arrowUpRight" className="size-4" />
-                    </a>
+                    </button>
                   </div>
                 </article>
               </Reveal>

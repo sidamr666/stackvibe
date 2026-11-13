@@ -1,11 +1,13 @@
 import { useEffect, useRef } from 'react'
 import { navLinks, socials } from '../data/site.js'
 import { useScrollLock } from '../hooks/useScrollLock.js'
+import { useRequestModal } from '../context/RequestModalContext.jsx'
 import Logo from './Logo.jsx'
 import Icon from './Icons.jsx'
 
 export default function MobileNav({ open, onClose, activeId }) {
   useScrollLock(open)
+  const openRequest = useRequestModal()
   const panelRef = useRef(null)
 
   useEffect(() => {
@@ -69,14 +71,17 @@ export default function MobileNav({ open, onClose, activeId }) {
           ))}
         </nav>
 
-        <a
-          href="#contact"
-          onClick={onClose}
-          className="mt-5 flex items-center justify-center gap-2 rounded-2xl bg-slate-900 px-4 py-3.5 text-sm font-semibold text-white"
+        <button
+          type="button"
+          onClick={() => {
+            onClose()
+            openRequest()
+          }}
+          className="mt-5 flex w-full items-center justify-center gap-2 rounded-2xl bg-slate-900 px-4 py-3.5 text-sm font-semibold text-white"
         >
           Start a project
           <Icon name="arrowRight" className="size-4" />
-        </a>
+        </button>
 
         <div className="mt-8 border-t border-line pt-6">
           <div className="flex items-center gap-3">

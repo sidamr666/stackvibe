@@ -1,9 +1,11 @@
 import { hero } from '../data/site.js'
+import { useRequestModal } from '../context/RequestModalContext.jsx'
 import Reveal from './Reveal.jsx'
 import HeroVisual from './HeroVisual.jsx'
 import Icon from './Icons.jsx'
 
 export default function Hero() {
+  const openRequest = useRequestModal()
   return (
     <section className="relative overflow-hidden pb-16 pt-32 sm:pb-24 sm:pt-40">
       <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8 lg:px-10">
@@ -32,13 +34,14 @@ export default function Hero() {
 
           <Reveal delay={240}>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a
-                href={hero.primaryCta.href}
+              <button
+                type="button"
+                onClick={() => openRequest()}
                 className="group inline-flex items-center justify-center gap-2 rounded-full bg-slate-900 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-slate-900/10 transition-all hover:-translate-y-0.5 hover:bg-slate-800"
               >
                 {hero.primaryCta.label}
                 <Icon name="arrowRight" className="size-4 transition-transform group-hover:translate-x-0.5" />
-              </a>
+              </button>
               <a
                 href={hero.secondaryCta.href}
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-line bg-white px-6 py-3.5 text-sm font-semibold text-ink transition-colors hover:bg-slate-50"
@@ -58,17 +61,6 @@ export default function Hero() {
                 </li>
               ))}
             </ul>
-          </Reveal>
-
-          <Reveal delay={400}>
-            <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-4">
-              {hero.stats.map((stat) => (
-                <div key={stat.label} className="flex flex-col bg-white px-5 py-4">
-                  <dt className="order-2 mt-0.5 text-xs text-slate-500">{stat.label}</dt>
-                  <dd className="order-1 text-2xl font-semibold tracking-tight text-ink">{stat.value}</dd>
-                </div>
-              ))}
-            </dl>
           </Reveal>
         </div>
 

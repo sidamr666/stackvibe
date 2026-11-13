@@ -5,12 +5,14 @@ import { useScrollSpy } from '../hooks/useScrollSpy.js'
 import MobileNav from './MobileNav.jsx'
 import Logo from './Logo.jsx'
 import Icon from './Icons.jsx'
+import { useRequestModal } from '../context/RequestModalContext.jsx'
 
 const sectionIds = navLinks.map((link) => link.id)
 
 export default function Header() {
   const scrolled = useScrolled(10)
   const active = useScrollSpy(sectionIds)
+  const openRequest = useRequestModal()
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -58,13 +60,14 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-2.5">
-          <a
-            href="#contact"
+          <button
+            type="button"
+            onClick={() => openRequest()}
             className="group hidden items-center gap-2 rounded-full bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-slate-800 sm:inline-flex"
           >
             Start a project
             <Icon name="arrowRight" className="size-4 transition-transform group-hover:translate-x-0.5" />
-          </a>
+          </button>
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}

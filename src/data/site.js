@@ -20,12 +20,10 @@ export const site = {
 
 export const navLinks = [
   { id: 'home', label: 'Home', href: '#home' },
-  { id: 'work', label: 'Work', href: '#work' },
   { id: 'services', label: 'Services', href: '#services' },
   { id: 'process', label: 'Process', href: '#process' },
   { id: 'pricing', label: 'Pricing', href: '#pricing' },
   { id: 'faq', label: 'FAQ', href: '#faq' },
-  { id: 'contact', label: 'Contact', href: '#contact' },
 ]
 
 export const hero = {
@@ -35,14 +33,8 @@ export const hero = {
   subtitle:
     'Mobile, desktop, web and AI - any software system, on any platform. Designed, engineered and shipped end to end by a senior team that cares about the details.',
   primaryCta: { label: 'Start a project', href: '#contact' },
-  secondaryCta: { label: 'See the work', href: '#work' },
+  secondaryCta: { label: 'See what we build', href: '#services' },
   badges: ['Fixed-price quotes', 'Weekly demos', 'You own the code'],
-  stats: [
-    { value: '30+', label: 'Projects delivered' },
-    { value: '12+', label: 'Happy clients' },
-    { value: '<24h', label: 'Response time' },
-    { value: '100%', label: 'On-time launches' },
-  ],
 }
 
 export const techStack = [
@@ -388,43 +380,30 @@ export const audiences = [
 
 export const packages = [
   {
-    id: 'launch',
-    name: 'Launch',
-    price: 900,
-    cadence: 'from',
-    description: 'A fast, polished website or landing page that gets you in business this week.',
-    features: ['Up to 6 pages', 'Responsive + SEO', 'Contact & request form', 'Analytics setup', '2 revision rounds'],
-    cta: 'Start with Launch',
+    id: 'student',
+    name: 'Student',
+    priceLabel: '$100 - $650',
+    description: 'An MVP site, desktop or mobile app, or a simple AI model. Simple scope, flexible timeline - perfect for a first version or a school project.',
+    features: ['Landing site or simple app', 'Basic database (optional)', 'Source code + handover', 'Flexible timeline', 'We build, you learn'],
+    cta: 'Apply',
     highlighted: false,
   },
   {
-    id: 'product',
-    name: 'Product',
-    price: 4500,
-    cadence: 'from',
-    description: 'A real mobile, desktop or web product: accounts, payments, and a dashboard.',
-    features: ['Mobile / desktop / web app', 'Auth & payments', 'Admin dashboard', 'Store or deploy', 'Weekly demos'],
-    cta: 'Build a product',
+    id: 'startup',
+    name: 'Startup',
+    priceLabel: '$1,000 - $4,500',
+    description: 'A real MVP to launch: app or website with database, domain, accounts and an admin panel. The price scales with urgency, features and size.',
+    features: ['Website or app MVP', 'Database + domain + hosting', 'Accounts & auth', 'Admin panel', 'Store or live deploy'],
+    cta: 'Apply',
     highlighted: true,
   },
   {
-    id: 'ai',
-    name: 'Product + AI',
-    price: 8000,
-    cadence: 'from',
-    description: 'A full product with an AI layer: assistants, RAG, extraction or automation.',
-    features: ['Everything in Product', 'LLM / RAG integration', 'Document automation', 'Evaluations & tuning', 'Priority support'],
-    cta: 'Build with AI',
-    highlighted: false,
-  },
-  {
-    id: 'retainer',
-    name: 'Retainer',
-    price: 800,
-    cadence: 'per month',
-    description: 'Ongoing maintenance, fixes and small features so your product keeps shipping.',
-    features: ['Bug fixes & updates', 'Monthly feature budget', 'Monitoring & backups', 'Same-week turnaround'],
-    cta: 'Keep it running',
+    id: 'enterprise',
+    name: 'Enterprise',
+    priceLabel: '$7,000 - $12,000',
+    description: 'Games, AI models with RAG, or company document and administrative systems. Large scope, production quality.',
+    features: ['Game / AI model + RAG', 'Company document system', 'Custom architecture', 'Security & compliance', 'Priority support'],
+    cta: 'Apply',
     highlighted: false,
   },
 ]

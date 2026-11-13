@@ -1,25 +1,26 @@
 import { pricing } from '../data/pricing.js'
 
-const roundTo10 = (n) => Math.round(n / 10) * 10
+const round10 = (n) => Math.round(n / 10) * 10
 
-// Computes a rough price range for a service + addon selection.
-export function estimateRange({ service, addons = [], timeline = 'standard' }) {
-  const svc = pricing.services[service]
-  const [lo, hi] = svc ? svc.base : [0, 0]
+// Estimates an "around-to-around" price within the selected tier, adjusted by
+// add-ons, urgency and project size.
+export function estimateRange({ tier = 'startup', addons = [], urgency = 'standard', size = 'medium' }) {
+  const t = pricing.tiers[tier] ?? pricing.tiers.startup
+  const [lo, hi] = t.range
 
-  const addonTotal = addons.reduce((sum, id) => {
-    const item = pricing.addons.find((a) => a.id === id)
-    return sum + (item ? item.price : 0)
+  const addonPct = addons.reduce((sum, id) => {
+    const addon = pricing.addons.find((a) => a.id === id)
+    return sum + (addon ? addon.pct : 0)
   }, 0)
 
-  const factor = (pricing.timeline.find((t) => t.id === timeline) || { factor: 1 }).factor
-  const mid = (lo + hi) / 2 + addonTotal
-  const estimate = mid * factor
+  const urgencyFactor = pricing.urgency.find((u) => u.id === urgency)?.factor ?? 1
+  const sizeFactor = pricing.size.find((s) => s.id === size)?.factor ?? 1
 
-  return {
-    min: roundTo10(estimate * 0.9),
-    max: roundTo10(estimate * 1.15),
-  }
+  const mid = (lo + hi) / 2
+  let estimate = mid * urgencyFactor * sizeFactor * (1 + addonPct / 100)
+  estimate = Math.min(Math.max(estimate, lo * 0.8), hi * 1.2)
+
+  return { min: round10(estimate * 0.85), max: round10(estimate * 1.1) }
 }
 
 export function formatMoney(value, currency = pricing.currency) {
@@ -30,12 +31,3 @@ export function formatMoney(value, currency = pricing.currency) {
   }).format(value)
 }
 
-// budget: { min, max } | { amount } | null. Returns how the estimate sits in the budget.
-export function compareBudget(estimate, budget) {
-  if (!budget) return 'unknown'
-  const floor = typeof budget.amount === 'number' ? budget.amount : budget.min
-  if (floor == null) return 'unknown'
-  if (floor >= estimate.max) return 'comfortable'
-  if (floor >= estimate.min) return 'tight'
-  return 'below'
-}
