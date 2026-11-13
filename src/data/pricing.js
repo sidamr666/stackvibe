@@ -3,9 +3,9 @@
 export const pricing = {
   currency: 'USD',
   tiers: {
-    student: { name: 'Student', range: [100, 650] },
-    startup: { name: 'Startup', range: [1000, 4500] },
-    enterprise: { name: 'Enterprise', range: [7000, 12000] },
+    student: { name: 'Student', range: [100, 650], minDays: 5 },
+    startup: { name: 'Startup', range: [1000, 4500], minDays: 15 },
+    enterprise: { name: 'Enterprise', range: [7000, 12000], minDays: 20 },
   },
   addons: [
     { id: 'database', label: 'Database', pct: 10, services: ['all'] },

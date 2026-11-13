@@ -6,7 +6,7 @@ import { submitRequest } from '../lib/submitRequest.js'
 import Icon from './Icons.jsx'
 
 const inputCls =
-  'w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink placeholder:text-slate-400 transition-colors focus:border-indigo-500 focus:outline-none'
+  'w-full rounded-xl border border-line bg-white px-4 py-2.5 text-sm text-ink placeholder:text-slate-400 transition-colors focus:border-indigo-500 focus:outline-none'
 
 const steps = ['What', 'Package', 'Details', 'Your info']
 
@@ -18,7 +18,7 @@ export default function RequestModal({ initialService = '', initialTier = '', on
   const [addons, setAddons] = useState([])
   const [size, setSize] = useState('medium')
   const [durationValue, setDurationValue] = useState('')
-  const [durationUnit, setDurationUnit] = useState('months')
+  const [durationUnit, setDurationUnit] = useState('days')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [company, setCompany] = useState('')
@@ -45,11 +45,22 @@ export default function RequestModal({ initialService = '', initialTier = '', on
   const estimate = estimateRange({ tier, addons, size, durationWeeks })
   const serviceName = services.find((s) => s.id === service)?.name ?? service
   const tierName = pricing.tiers[tier]?.name ?? tier
+  const tierMinDays = pricing.tiers[tier]?.minDays ?? 1
   const durationLabel = durationValue
     ? `${durationValue} ${pricing.durationUnits.find((u) => u.id === durationUnit)?.label ?? ''}`
     : ''
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
   const canNext = step === 0 ? !!service : step === 3 ? name.trim().length > 0 && emailValid : true
+
+  const selectTier = (id) => {
+    setTier(id)
+    const t = pricing.tiers[id]
+    if (t?.minDays) {
+      setDurationValue(String(t.minDays))
+      setDurationUnit('days')
+    }
+    setStep(2)
+  }
 
   const next = () => {
     if (!canNext) return
@@ -108,12 +119,12 @@ export default function RequestModal({ initialService = '', initialTier = '', on
   }
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Start a project">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6" role="dialog" aria-modal="true" aria-label="Start a project">
       <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
 
-      <div className="relative flex h-[min(94vh,880px)] w-full max-w-4xl flex-col overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-slate-900/10">
+      <div className="relative flex h-[100dvh] w-full max-w-5xl flex-col overflow-hidden bg-white shadow-2xl ring-1 ring-slate-900/10 sm:h-[min(92vh,760px)] sm:rounded-3xl">
         {status === 'sent' ? (
-          <div className="relative flex flex-1 items-center justify-center overflow-hidden bg-gradient-to-br from-indigo-600 via-violet-600 to-indigo-700 px-6 py-16 text-center">
+          <div className="relative flex flex-1 items-center justify-center overflow-hidden bg-gradient-to-br from-indigo-600 via-violet-600 to-indigo-700 px-6 text-center">
             <div className="absolute -right-12 -top-12 size-48 rounded-full bg-white/10 blur-2xl animate-float" aria-hidden="true" />
             <span className="mx-auto grid size-16 place-items-center rounded-full bg-white/15 text-white">
               <Icon name="checkCircle" className="size-8" />
@@ -135,247 +146,232 @@ export default function RequestModal({ initialService = '', initialTier = '', on
           </div>
         ) : (
           <div className="flex min-h-0 flex-1 flex-col">
-            <div className="relative shrink-0 bg-gradient-to-br from-indigo-600 via-violet-600 to-indigo-700 px-6 py-5 sm:px-8">
-              <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-                <div className="absolute -right-10 -top-14 size-44 rounded-full bg-white/10 blur-2xl animate-float" />
-                <div className="absolute -left-8 bottom-0 size-32 rounded-full bg-white/10 blur-2xl animate-float-slow" />
-              </div>
-              <div className="relative flex items-center justify-between gap-4">
-                <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-indigo-200">StackVibe Studio</p>
-                  <h2 className="mt-0.5 text-xl font-semibold tracking-tight text-white sm:text-2xl">Let's build something great</h2>
+            <div className="flex shrink-0 items-center justify-between gap-3 border-b border-line bg-white px-5 py-3">
+              <div className="flex items-center gap-2.5">
+                <span className="grid size-8 place-items-center rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 text-white">
+                  <Icon name="layers" className="size-4" />
+                </span>
+                <div className="leading-tight">
+                  <p className="text-sm font-semibold text-ink">StackVibe</p>
+                  <p className="text-[11px] text-slate-400">Step {step + 1} of {steps.length} &middot; {steps[step]}</p>
                 </div>
-                <button
-                  type="button"
-                  onClick={onClose}
-                  aria-label="Close"
-                  className="grid size-9 shrink-0 place-items-center rounded-full bg-white/15 text-white transition-colors hover:bg-white/25"
-                >
-                  <Icon name="close" className="size-4" />
-                </button>
               </div>
-
-              <ol className="relative mt-4 flex items-center justify-center gap-3 sm:gap-6">
+              <div className="flex items-center gap-1.5" aria-hidden="true">
                 {steps.map((label, i) => (
-                  <li key={label} className="flex items-center gap-2">
-                    <span
-                      className={`grid size-8 place-items-center rounded-full text-sm font-semibold transition-colors ${
-                        i < step ? 'bg-white text-indigo-700' : i === step ? 'bg-white/20 text-white ring-2 ring-white/70' : 'bg-white/10 text-white/70'
-                      }`}
-                    >
-                      {i < step ? <Icon name="check" className="size-4" /> : i + 1}
-                    </span>
-                    <span className={`hidden text-xs font-medium sm:inline ${i <= step ? 'text-white' : 'text-indigo-200/70'}`}>{label}</span>
-                    {i < steps.length - 1 && <span className="hidden h-px w-8 bg-white/25 sm:block" aria-hidden="true" />}
-                  </li>
+                  <span key={label} className={`h-1.5 rounded-full transition-all duration-300 ${i <= step ? 'w-8 bg-indigo-600' : 'w-3 bg-slate-200'}`} />
                 ))}
-              </ol>
+              </div>
+              <button
+                type="button"
+                onClick={onClose}
+                aria-label="Close"
+                className="grid size-9 shrink-0 place-items-center rounded-full border border-line text-slate-500 transition-colors hover:bg-slate-50 hover:text-ink"
+              >
+                <Icon name="close" className="size-4" />
+              </button>
             </div>
 
             <form onSubmit={onSubmit} noValidate className="flex min-h-0 flex-1 flex-col">
-              <div key={step} className="animate-fade-up min-h-0 flex-1 overflow-y-auto p-6 sm:p-8">
-                <div className="hidden" aria-hidden="true">
-                  <label>
-                    Website
-                    <input type="text" value={website} onChange={(e) => setWebsite(e.target.value)} tabIndex={-1} autoComplete="off" />
-                  </label>
-                </div>
-
-                {step === 0 && (
-                  <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                    {services.map((s) => (
-                      <button
-                        key={s.id}
-                        type="button"
-                        onClick={() => {
-                          setService(s.id)
-                          setStep(1)
-                        }}
-                        className={`group relative overflow-hidden rounded-2xl border p-5 text-left transition-all duration-300 ${
-                          service === s.id
-                            ? 'border-indigo-500 bg-indigo-50/40 ring-2 ring-indigo-500/40'
-                            : 'border-line bg-white hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-lg hover:shadow-indigo-500/5'
-                        }`}
-                      >
-                        <span className="flex items-center gap-3">
-                          <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-indigo-500/15 to-violet-500/15 text-indigo-600 transition-transform duration-300 group-hover:scale-105">
-                            <Icon name={s.icon} className="size-5" />
-                          </span>
-                          <span className="text-[15px] font-semibold text-ink">{s.name}</span>
-                        </span>
-                        <span className="mt-2.5 block text-xs leading-relaxed text-slate-500">{s.tagline}</span>
-                      </button>
-                    ))}
+              <div className="min-h-0 flex-1 overflow-hidden">
+                <div key={step} className="animate-fade-up h-full p-5 sm:p-8">
+                  <div className="hidden" aria-hidden="true">
+                    <label>
+                      Website
+                      <input type="text" value={website} onChange={(e) => setWebsite(e.target.value)} tabIndex={-1} autoComplete="off" />
+                    </label>
                   </div>
-                )}
 
-                {step === 1 && (
-                  <div className="grid gap-4 sm:grid-cols-3">
-                    {packages.map((pkg) => (
-                      <button
-                        key={pkg.id}
-                        type="button"
-                        onClick={() => {
-                          setTier(pkg.id)
-                          setStep(2)
-                        }}
-                        className={`relative flex flex-col rounded-2xl border p-5 text-left transition-all duration-300 ${
-                          pkg.highlighted
-                            ? 'border-indigo-500 bg-gradient-to-b from-indigo-600 to-violet-700 text-white shadow-xl shadow-indigo-500/25'
-                            : 'border-line bg-white hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-lg hover:shadow-indigo-500/5'
-                        }`}
-                      >
-                        {pkg.highlighted && (
-                          <span className="absolute right-4 top-4 rounded-full bg-white/20 px-2.5 py-0.5 text-[11px] font-semibold text-white">
-                            Most popular
-                          </span>
-                        )}
-                        <span className={`text-base font-semibold ${pkg.highlighted ? 'text-white' : 'text-ink'}`}>{pkg.name}</span>
-                        <span className={`mt-3 text-2xl font-bold tracking-tight ${pkg.highlighted ? 'text-white' : 'text-ink'}`}>{pkg.priceLabel}</span>
-                        <span className={`mt-2 text-xs leading-relaxed ${pkg.highlighted ? 'text-indigo-100' : 'text-slate-500'}`}>{pkg.description}</span>
-                        <ul className="mt-4 space-y-1.5">
-                          {pkg.features.map((f) => (
-                            <li key={f} className={`flex items-start gap-2 text-xs ${pkg.highlighted ? 'text-indigo-50' : 'text-slate-600'}`}>
-                              <Icon name="check" className={`mt-0.5 size-3.5 shrink-0 ${pkg.highlighted ? 'text-white' : 'text-emerald-600'}`} />
-                              {f}
-                            </li>
-                          ))}
-                        </ul>
-                      </button>
-                    ))}
-                  </div>
-                )}
+                  {step === 0 && (
+                    <div className="mx-auto flex h-full max-w-3xl flex-col justify-center">
+                      <h3 className="text-center text-xl font-semibold tracking-tight text-ink">What are we building?</h3>
+                      <p className="mt-1 text-center text-sm text-slate-500">Pick one - you can refine it next.</p>
+                      <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
+                        {services.map((s) => (
+                          <button
+                            key={s.id}
+                            type="button"
+                            onClick={() => {
+                              setService(s.id)
+                              setStep(1)
+                            }}
+                            className="group flex flex-col items-center gap-2.5 rounded-2xl border border-line bg-white p-4 text-center transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-lg hover:shadow-indigo-500/5"
+                          >
+                            <span className="grid size-11 place-items-center rounded-xl bg-gradient-to-br from-indigo-500/12 to-violet-500/12 text-indigo-600 transition-transform duration-300 group-hover:scale-105">
+                              <Icon name={s.icon} className="size-5" />
+                            </span>
+                            <span className="text-sm font-semibold leading-tight text-ink">{s.name}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
-                {step === 2 && (
-                  <div className="grid gap-6">
-                    <div>
-                      <p className="text-sm font-semibold text-ink">
-                        What extra do you need? <span className="font-normal text-slate-400">(optional)</span>
-                      </p>
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {visibleAddons.map((a) => {
-                          const active = addons.includes(a.id)
-                          return (
-                            <button
-                              key={a.id}
-                              type="button"
-                              onClick={() => toggleAddon(a.id)}
-                              aria-pressed={active}
-                              className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-2 text-sm font-medium transition-all ${
-                                active
-                                  ? 'border-indigo-500 bg-indigo-50 text-indigo-700 ring-1 ring-indigo-500'
-                                  : 'border-line bg-white text-slate-600 hover:border-slate-300'
-                              }`}
-                            >
-                              <span className={`grid size-4 place-items-center rounded-full border ${active ? 'border-indigo-500 bg-indigo-500 text-white' : 'border-slate-300'}`}>
-                                {active && <Icon name="check" className="size-2.5" />}
+                  {step === 1 && (
+                    <div className="mx-auto flex h-full max-w-4xl flex-col justify-center">
+                      <h3 className="text-center text-xl font-semibold tracking-tight text-ink">Choose your package</h3>
+                      <p className="mt-1 text-center text-sm text-slate-500">We confirm the exact price after you apply.</p>
+                      <div className="mt-5 grid gap-4 sm:grid-cols-3">
+                        {packages.map((pkg) => (
+                          <button
+                            key={pkg.id}
+                            type="button"
+                            onClick={() => selectTier(pkg.id)}
+                            className={`relative flex flex-col rounded-2xl border p-5 text-left transition-all duration-300 ${
+                              pkg.highlighted
+                                ? 'border-indigo-500 bg-gradient-to-b from-indigo-600 to-violet-700 text-white shadow-xl shadow-indigo-500/25'
+                                : 'border-line bg-white hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-lg hover:shadow-indigo-500/5'
+                            }`}
+                          >
+                            {pkg.highlighted && (
+                              <span className="absolute right-4 top-4 rounded-full bg-white/20 px-2.5 py-0.5 text-[11px] font-semibold text-white">
+                                Most popular
                               </span>
-                              {a.label}
-                            </button>
-                          )
-                        })}
+                            )}
+                            <span className={`text-base font-semibold ${pkg.highlighted ? 'text-white' : 'text-ink'}`}>{pkg.name}</span>
+                            <span className={`mt-2 text-2xl font-bold tracking-tight ${pkg.highlighted ? 'text-white' : 'text-ink'}`}>{pkg.priceLabel}</span>
+                            <span className={`mt-2 text-xs leading-relaxed ${pkg.highlighted ? 'text-indigo-100' : 'text-slate-500'}`}>{pkg.description}</span>
+                            <ul className="mt-3.5 space-y-1.5">
+                              {pkg.features.map((f) => (
+                                <li key={f} className={`flex items-start gap-2 text-xs ${pkg.highlighted ? 'text-indigo-50' : 'text-slate-600'}`}>
+                                  <Icon name="check" className={`mt-0.5 size-3.5 shrink-0 ${pkg.highlighted ? 'text-white' : 'text-emerald-600'}`} />
+                                  {f}
+                                </li>
+                              ))}
+                            </ul>
+                          </button>
+                        ))}
                       </div>
                     </div>
+                  )}
 
-                    <div className="grid gap-4 sm:grid-cols-2">
+                  {step === 2 && (
+                    <div className="mx-auto flex h-full max-w-3xl flex-col justify-center gap-5">
                       <div>
-                        <p className="text-sm font-semibold text-ink">How long do you need it?</p>
-                        <div className="mt-3 flex gap-2">
-                          <input
-                            type="number"
-                            min="1"
-                            inputMode="numeric"
-                            value={durationValue}
-                            onChange={(e) => setDurationValue(e.target.value)}
-                            placeholder="e.g. 2"
-                            className={inputCls}
-                          />
-                          <select value={durationUnit} onChange={(e) => setDurationUnit(e.target.value)} className={`${inputCls} w-28`} aria-label="Unit">
-                            {pricing.durationUnits.map((u) => (
-                              <option key={u.id} value={u.id}>{u.label}</option>
+                        <p className="text-sm font-semibold text-ink">
+                          Extras <span className="font-normal text-slate-400">(optional)</span>
+                        </p>
+                        <div className="mt-2.5 flex flex-wrap gap-2">
+                          {visibleAddons.map((a) => {
+                            const active = addons.includes(a.id)
+                            return (
+                              <button
+                                key={a.id}
+                                type="button"
+                                onClick={() => toggleAddon(a.id)}
+                                aria-pressed={active}
+                                className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium transition-all ${
+                                  active
+                                    ? 'border-indigo-500 bg-indigo-50 text-indigo-700 ring-1 ring-indigo-500'
+                                    : 'border-line bg-white text-slate-600 hover:border-slate-300'
+                                }`}
+                              >
+                                <span className={`grid size-4 place-items-center rounded-full border ${active ? 'border-indigo-500 bg-indigo-500 text-white' : 'border-slate-300'}`}>
+                                  {active && <Icon name="check" className="size-2.5" />}
+                                </span>
+                                {a.label}
+                              </button>
+                            )
+                          })}
+                        </div>
+                      </div>
+
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        <div>
+                          <p className="text-sm font-semibold text-ink">How long do you need it?</p>
+                          <div className="mt-2.5 flex gap-2">
+                            <input
+                              type="number"
+                              min={tierMinDays}
+                              inputMode="numeric"
+                              value={durationValue}
+                              onChange={(e) => setDurationValue(e.target.value)}
+                              placeholder={String(tierMinDays)}
+                              className={inputCls}
+                            />
+                            <select value={durationUnit} onChange={(e) => setDurationUnit(e.target.value)} className={`${inputCls} w-28`} aria-label="Unit">
+                              {pricing.durationUnits.map((u) => (
+                                <option key={u.id} value={u.id}>{u.label}</option>
+                              ))}
+                            </select>
+                          </div>
+                          <p className="mt-1.5 text-xs text-slate-400">Fastest: {tierMinDays} days for {tierName}. Faster costs more.</p>
+                        </div>
+
+                        <div>
+                          <p className="text-sm font-semibold text-ink">How big is the project?</p>
+                          <div className="mt-2.5 grid grid-cols-3 gap-2">
+                            {pricing.size.map((s) => (
+                              <button
+                                key={s.id}
+                                type="button"
+                                onClick={() => setSize(s.id)}
+                                aria-pressed={size === s.id}
+                                className={`rounded-xl border px-3 py-2 text-sm font-medium transition-colors ${
+                                  size === s.id
+                                    ? 'border-indigo-500 bg-indigo-50 text-indigo-700 ring-1 ring-indigo-500'
+                                    : 'border-line bg-white text-slate-600 hover:border-slate-300'
+                                }`}
+                              >
+                                {s.label}
+                              </button>
                             ))}
-                          </select>
-                        </div>
-                        <p className="mt-1.5 text-xs text-slate-400">Faster costs a little more, slower costs less.</p>
-                      </div>
-
-                      <div>
-                        <p className="text-sm font-semibold text-ink">How big is the project?</p>
-                        <div className="mt-3 grid grid-cols-3 gap-2">
-                          {pricing.size.map((s) => (
-                            <button
-                              key={s.id}
-                              type="button"
-                              onClick={() => setSize(s.id)}
-                              aria-pressed={size === s.id}
-                              className={`rounded-xl border px-3 py-2.5 text-sm font-medium transition-colors ${
-                                size === s.id
-                                  ? 'border-indigo-500 bg-indigo-50 text-indigo-700 ring-1 ring-indigo-500'
-                                  : 'border-line bg-white text-slate-600 hover:border-slate-300'
-                              }`}
-                            >
-                              {s.label}
-                            </button>
-                          ))}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {step === 3 && (
-                  <div className="grid gap-5">
-                    <div className="grid gap-5 sm:grid-cols-2">
-                      <div className="flex flex-col gap-1.5">
-                        <label htmlFor="rm-name" className="text-xs font-medium text-slate-600">Your name *</label>
-                        <input id="rm-name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Full name" className={inputCls} required />
+                  {step === 3 && (
+                    <div className="mx-auto flex h-full max-w-3xl flex-col justify-center gap-4">
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        <div className="flex flex-col gap-1.5">
+                          <label htmlFor="rm-name" className="text-xs font-medium text-slate-600">Your name *</label>
+                          <input id="rm-name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Full name" className={inputCls} required />
+                        </div>
+                        <div className="flex flex-col gap-1.5">
+                          <label htmlFor="rm-email" className="text-xs font-medium text-slate-600">Email *</label>
+                          <input id="rm-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@company.com" className={inputCls} required />
+                        </div>
+                        <div className="flex flex-col gap-1.5">
+                          <label htmlFor="rm-company" className="text-xs font-medium text-slate-600">Company <span className="text-slate-400">(optional)</span></label>
+                          <input id="rm-company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Company name" className={inputCls} />
+                        </div>
+                        <div className="flex flex-col gap-1.5">
+                          <label htmlFor="rm-message" className="text-xs font-medium text-slate-600">Your idea</label>
+                          <input id="rm-message" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="What are you trying to build?" className={inputCls} />
+                        </div>
                       </div>
-                      <div className="flex flex-col gap-1.5">
-                        <label htmlFor="rm-email" className="text-xs font-medium text-slate-600">Email *</label>
-                        <input id="rm-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@company.com" className={inputCls} required />
+
+                      <div className="flex flex-wrap items-center gap-x-6 gap-y-1.5 rounded-2xl border border-line bg-slate-50/70 px-5 py-3 text-sm text-slate-600">
+                        <span><span className="font-medium text-ink">Building:</span> {serviceName}</span>
+                        <span><span className="font-medium text-ink">Package:</span> {tierName}</span>
+                        {durationLabel && <span><span className="font-medium text-ink">Duration:</span> {durationLabel}</span>}
                       </div>
                     </div>
-                    <div className="grid gap-5 sm:grid-cols-2">
-                      <div className="flex flex-col gap-1.5">
-                        <label htmlFor="rm-company" className="text-xs font-medium text-slate-600">Company <span className="text-slate-400">(optional)</span></label>
-                        <input id="rm-company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Company name" className={inputCls} />
-                      </div>
-                      <div className="flex flex-col gap-1.5">
-                        <label htmlFor="rm-message" className="text-xs font-medium text-slate-600">Tell us about your idea</label>
-                        <textarea id="rm-message" rows={2} value={message} onChange={(e) => setMessage(e.target.value)} placeholder="What are you trying to build?" className={`${inputCls} resize-none`} />
-                      </div>
-                    </div>
+                  )}
 
-                    <div className="flex flex-wrap items-center gap-x-6 gap-y-2 rounded-2xl border border-line bg-slate-50/70 px-5 py-3 text-sm text-slate-600">
-                      <span><span className="font-medium text-ink">Building:</span> {serviceName}</span>
-                      <span><span className="font-medium text-ink">Package:</span> {tierName}</span>
-                      {durationLabel && <span><span className="font-medium text-ink">Duration:</span> {durationLabel}</span>}
-                    </div>
-                  </div>
-                )}
-
-                {error && <p role="alert" className="mt-5 text-sm font-medium text-rose-600">{error}</p>}
+                  {error && <p role="alert" className="mt-4 text-center text-sm font-medium text-rose-600">{error}</p>}
+                </div>
               </div>
 
               {step >= 1 && (
-                <div className="shrink-0 border-t border-line bg-white px-6 py-3">
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="flex flex-wrap items-center gap-2.5">
-                      <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Estimated</span>
-                      <span key={estimate.max} className="animate-fade-up text-xl font-bold tracking-tight text-ink">
-                        {formatMoney(estimate.min)} - {formatMoney(estimate.max)}
-                      </span>
-                      <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-500">{tierName}</span>
-                    </div>
-                    <span className="hidden items-center gap-1.5 text-xs text-slate-400 sm:flex">
-                      <Icon name="shield" className="size-3.5 text-emerald-600" />
-                      Fixed price
+                <div className="shrink-0 flex items-center justify-between gap-3 border-t border-line bg-slate-50/80 px-5 py-2.5">
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Estimated</span>
+                    <span key={estimate.max} className="animate-fade-up text-lg font-bold tracking-tight text-ink">
+                      {formatMoney(estimate.min)} - {formatMoney(estimate.max)}
                     </span>
+                    <span className="rounded-full bg-white px-2.5 py-0.5 text-xs font-medium text-slate-500 ring-1 ring-line">{tierName}</span>
+                    {durationLabel && <span className="text-xs text-slate-400">&middot; {durationLabel}</span>}
                   </div>
+                  <span className="hidden items-center gap-1.5 text-xs text-slate-400 sm:flex">
+                    <Icon name="shield" className="size-3.5 text-emerald-600" />
+                    You own the code &middot; Fixed price
+                  </span>
                 </div>
               )}
 
-              <div className="flex shrink-0 items-center justify-between gap-3 border-t border-line bg-white px-6 py-4 sm:px-8">
+              <div className="flex shrink-0 items-center justify-between gap-3 border-t border-line bg-white px-5 py-3.5">
                 <button
                   type="button"
                   onClick={back}
