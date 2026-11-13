@@ -17,6 +17,7 @@ export const pricing = {
     { id: 'hosting', label: 'Domain & hosting', pct: 5, services: ['web-saas'] },
     { id: 'store', label: 'Store submission', pct: 5, services: ['mobile-apps', 'desktop-apps'] },
     { id: 'ai', label: 'AI model / RAG', pct: 15, services: ['ai-features', 'custom-software', 'web-saas', 'document-automation'] },
+    { id: 'bot', label: 'AI bot / Agent', pct: 15, services: ['ai-features', 'custom-software', 'web-saas', 'mobile-apps', 'desktop-apps'] },
     { id: 'docs', label: 'Document system (OCR)', pct: 12, services: ['document-automation', 'custom-software'] },
     { id: 'game', label: 'Game', pct: 20, services: ['custom-software', 'desktop-apps', 'mobile-apps'] },
     { id: 'i18n', label: 'Multi-language', pct: 4, services: ['all'] },

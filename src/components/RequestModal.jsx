@@ -111,10 +111,10 @@ export default function RequestModal({ initialService = '', initialTier = '', on
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Start a project">
       <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
 
-      <div className="relative flex max-h-[92vh] w-full max-w-3xl flex-col overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-slate-900/10">
+      <div className="relative flex h-[min(94vh,880px)] w-full max-w-4xl flex-col overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-slate-900/10">
         {status === 'sent' ? (
-          <div className="relative overflow-hidden bg-gradient-to-br from-indigo-600 via-violet-600 to-indigo-700 px-6 py-16 text-center sm:px-10">
-            <div className="absolute -right-12 -top-12 size-48 rounded-full bg-white/10 blur-2xl" aria-hidden="true" />
+          <div className="relative flex flex-1 items-center justify-center overflow-hidden bg-gradient-to-br from-indigo-600 via-violet-600 to-indigo-700 px-6 py-16 text-center">
+            <div className="absolute -right-12 -top-12 size-48 rounded-full bg-white/10 blur-2xl animate-float" aria-hidden="true" />
             <span className="mx-auto grid size-16 place-items-center rounded-full bg-white/15 text-white">
               <Icon name="checkCircle" className="size-8" />
             </span>
@@ -134,15 +134,16 @@ export default function RequestModal({ initialService = '', initialTier = '', on
             </button>
           </div>
         ) : (
-          <div className="flex min-h-0 flex-col">
-            <div className="relative overflow-hidden bg-gradient-to-br from-indigo-600 via-violet-600 to-indigo-700 px-6 py-6 sm:px-8">
-              <div className="absolute -right-10 -top-14 size-44 rounded-full bg-white/10 blur-2xl" aria-hidden="true" />
-              <div className="absolute -left-8 bottom-0 size-32 rounded-full bg-white/10 blur-2xl" aria-hidden="true" />
-              <div className="relative flex items-start justify-between gap-4">
+          <div className="flex min-h-0 flex-1 flex-col">
+            <div className="relative shrink-0 bg-gradient-to-br from-indigo-600 via-violet-600 to-indigo-700 px-6 py-5 sm:px-8">
+              <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+                <div className="absolute -right-10 -top-14 size-44 rounded-full bg-white/10 blur-2xl animate-float" />
+                <div className="absolute -left-8 bottom-0 size-32 rounded-full bg-white/10 blur-2xl animate-float-slow" />
+              </div>
+              <div className="relative flex items-center justify-between gap-4">
                 <div>
                   <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-indigo-200">StackVibe Studio</p>
-                  <h2 className="mt-1 text-2xl font-semibold tracking-tight text-white">Let's build something great</h2>
-                  <p className="mt-1 text-sm text-indigo-100/80">Tell us your idea - we reply within 24 hours with the exact price.</p>
+                  <h2 className="mt-0.5 text-xl font-semibold tracking-tight text-white sm:text-2xl">Let's build something great</h2>
                 </div>
                 <button
                   type="button"
@@ -154,23 +155,24 @@ export default function RequestModal({ initialService = '', initialTier = '', on
                 </button>
               </div>
 
-              <ol className="relative mt-5 flex items-start justify-between gap-2">
+              <ol className="relative mt-4 flex items-center justify-center gap-3 sm:gap-6">
                 {steps.map((label, i) => (
-                  <li key={label} className="flex flex-1 flex-col items-center gap-1.5">
+                  <li key={label} className="flex items-center gap-2">
                     <span
                       className={`grid size-8 place-items-center rounded-full text-sm font-semibold transition-colors ${
-                        i < step ? 'bg-white text-indigo-700' : i === step ? 'bg-white/20 text-white ring-2 ring-white/60' : 'bg-white/10 text-white/60'
+                        i < step ? 'bg-white text-indigo-700' : i === step ? 'bg-white/20 text-white ring-2 ring-white/70' : 'bg-white/10 text-white/70'
                       }`}
                     >
                       {i < step ? <Icon name="check" className="size-4" /> : i + 1}
                     </span>
-                    <span className={`text-[11px] font-medium ${i <= step ? 'text-white' : 'text-indigo-200/60'}`}>{label}</span>
+                    <span className={`hidden text-xs font-medium sm:inline ${i <= step ? 'text-white' : 'text-indigo-200/70'}`}>{label}</span>
+                    {i < steps.length - 1 && <span className="hidden h-px w-8 bg-white/25 sm:block" aria-hidden="true" />}
                   </li>
                 ))}
               </ol>
             </div>
 
-            <form onSubmit={onSubmit} noValidate className="flex min-h-0 flex-col">
+            <form onSubmit={onSubmit} noValidate className="flex min-h-0 flex-1 flex-col">
               <div key={step} className="animate-fade-up min-h-0 flex-1 overflow-y-auto p-6 sm:p-8">
                 <div className="hidden" aria-hidden="true">
                   <label>
@@ -180,7 +182,7 @@ export default function RequestModal({ initialService = '', initialTier = '', on
                 </div>
 
                 {step === 0 && (
-                  <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                     {services.map((s) => (
                       <button
                         key={s.id}
@@ -224,7 +226,7 @@ export default function RequestModal({ initialService = '', initialTier = '', on
                         }`}
                       >
                         {pkg.highlighted && (
-                          <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-white px-3 py-1 text-[11px] font-semibold text-indigo-700 shadow">
+                          <span className="absolute right-4 top-4 rounded-full bg-white/20 px-2.5 py-0.5 text-[11px] font-semibold text-white">
                             Most popular
                           </span>
                         )}
@@ -318,17 +320,6 @@ export default function RequestModal({ initialService = '', initialTier = '', on
                         </div>
                       </div>
                     </div>
-
-                    <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 p-6">
-                      <div className="absolute -right-8 -top-8 size-32 rounded-full bg-indigo-500/20 blur-2xl" aria-hidden="true" />
-                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Estimated price</p>
-                      <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                        {formatMoney(estimate.min)} - {formatMoney(estimate.max)}
-                      </p>
-                      <p className="mt-2 text-sm text-slate-300">
-                        Around this range for the {tierName} package. We confirm the exact price after you apply.
-                      </p>
-                    </div>
                   </div>
                 )}
 
@@ -344,23 +335,21 @@ export default function RequestModal({ initialService = '', initialTier = '', on
                         <input id="rm-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@company.com" className={inputCls} required />
                       </div>
                     </div>
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="rm-company" className="text-xs font-medium text-slate-600">Company <span className="text-slate-400">(optional)</span></label>
-                      <input id="rm-company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Company name" className={inputCls} />
-                    </div>
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="rm-message" className="text-xs font-medium text-slate-600">Tell us about your idea</label>
-                      <textarea id="rm-message" rows={3} value={message} onChange={(e) => setMessage(e.target.value)} placeholder="What are you trying to build? Anything helps." className={`${inputCls} resize-none`} />
+                    <div className="grid gap-5 sm:grid-cols-2">
+                      <div className="flex flex-col gap-1.5">
+                        <label htmlFor="rm-company" className="text-xs font-medium text-slate-600">Company <span className="text-slate-400">(optional)</span></label>
+                        <input id="rm-company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Company name" className={inputCls} />
+                      </div>
+                      <div className="flex flex-col gap-1.5">
+                        <label htmlFor="rm-message" className="text-xs font-medium text-slate-600">Tell us about your idea</label>
+                        <textarea id="rm-message" rows={2} value={message} onChange={(e) => setMessage(e.target.value)} placeholder="What are you trying to build?" className={`${inputCls} resize-none`} />
+                      </div>
                     </div>
 
-                    <div className="rounded-2xl border border-line bg-slate-50/70 p-5 text-sm">
-                      <p className="font-semibold text-ink">Summary</p>
-                      <div className="mt-2 grid gap-1 text-slate-600">
-                        <p><span className="font-medium text-ink">Building:</span> {serviceName}</p>
-                        <p><span className="font-medium text-ink">Package:</span> {tierName}</p>
-                        {durationLabel && <p><span className="font-medium text-ink">Duration:</span> {durationLabel}</p>}
-                        <p><span className="font-medium text-ink">Estimate:</span> {formatMoney(estimate.min)} - {formatMoney(estimate.max)}</p>
-                      </div>
+                    <div className="flex flex-wrap items-center gap-x-6 gap-y-2 rounded-2xl border border-line bg-slate-50/70 px-5 py-3 text-sm text-slate-600">
+                      <span><span className="font-medium text-ink">Building:</span> {serviceName}</span>
+                      <span><span className="font-medium text-ink">Package:</span> {tierName}</span>
+                      {durationLabel && <span><span className="font-medium text-ink">Duration:</span> {durationLabel}</span>}
                     </div>
                   </div>
                 )}
@@ -368,7 +357,25 @@ export default function RequestModal({ initialService = '', initialTier = '', on
                 {error && <p role="alert" className="mt-5 text-sm font-medium text-rose-600">{error}</p>}
               </div>
 
-              <div className="flex items-center justify-between gap-3 border-t border-line bg-white px-6 py-4 sm:px-8">
+              {step >= 1 && (
+                <div className="shrink-0 border-t border-line bg-white px-6 py-3">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex flex-wrap items-center gap-2.5">
+                      <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Estimated</span>
+                      <span key={estimate.max} className="animate-fade-up text-xl font-bold tracking-tight text-ink">
+                        {formatMoney(estimate.min)} - {formatMoney(estimate.max)}
+                      </span>
+                      <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-500">{tierName}</span>
+                    </div>
+                    <span className="hidden items-center gap-1.5 text-xs text-slate-400 sm:flex">
+                      <Icon name="shield" className="size-3.5 text-emerald-600" />
+                      Fixed price
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              <div className="flex shrink-0 items-center justify-between gap-3 border-t border-line bg-white px-6 py-4 sm:px-8">
                 <button
                   type="button"
                   onClick={back}
@@ -379,17 +386,12 @@ export default function RequestModal({ initialService = '', initialTier = '', on
                   Back
                 </button>
 
-                <div className="hidden items-center gap-2 text-xs text-slate-400 sm:flex">
-                  <Icon name="shield" className="size-3.5 text-emerald-600" />
-                  You own the code &middot; Fixed price
-                </div>
-
                 {step < steps.length - 1 ? (
                   <button
                     type="button"
                     onClick={next}
                     disabled={!canNext}
-                    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25 transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 px-7 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25 transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     Next
                     <Icon name="arrowRight" className="size-4" />
@@ -398,7 +400,7 @@ export default function RequestModal({ initialService = '', initialTier = '', on
                   <button
                     type="submit"
                     disabled={status === 'sending' || !canNext}
-                    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25 transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 px-7 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25 transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     {status === 'sending' ? 'Sending...' : 'Apply'}
                     <Icon name="send" className="size-4" />
