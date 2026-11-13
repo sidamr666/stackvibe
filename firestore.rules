@@ -1,0 +1,36 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    // Marketing site: anonymous clients may only create a new request.
+    match /requests/{id} {
+      allow create: if
+        request.resource.data.keys().hasAll(['name', 'email', 'service', 'status', 'source', 'createdAt'])
+        && request.resource.data.status == 'new'
+        && request.resource.data.source == 'web'
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.name is string && request.resource.data.name.size() <= 120
+        && request.resource.data.email is string && request.resource.data.email.size() <= 200
+        && request.resource.data['service'] is string && request.resource.data['service'].size() <= 80
+        && (!('message' in request.resource.data)
+            || (request.resource.data.message is string && request.resource.data.message.size() <= 4000));
+
+      allow read, update, delete: if isAdmin();
+    }
+
+    // A document per admin UID grants read/update access in the admin app.
+    match /admins/{uid} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

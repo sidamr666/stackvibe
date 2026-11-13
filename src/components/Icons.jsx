@@ -19,6 +19,22 @@ const stroke = {
   rocket: <><path d="M12 3c3 2 5 5 5 9l-2 2-3-3-3 3-2-2c0-4 2-7 5-9Z" /><path d="m5 12-2 2 3 3 2-2" /><path d="M15.5 6.5 13 9" /><circle cx="12" cy="12" r="1.4" /></>,
   phone: <><rect x="6.5" y="2.5" width="11" height="19" rx="2.5" /><path d="M10 5.5h4" /></>,
   play: <path d="M7 4.5v15l12-7.5-12-7.5Z" />,
+  apple: <><path d="M15.5 4c.3 1.1-.2 2.2-1.1 2.9" /><path d="M12.2 7.5C11.2 5.6 9.7 4.7 7.9 5.1c-2 .4-3.3 2.2-3.3 4.8 0 3.1 1.5 7 3.6 9.2 1.3 1.3 2.5 1.3 3.4 0 .6-.9 1-1.6 2-1.6s1.4.7 2 1.6c.9 1.3 2.1 1.3 3.4 0 2.1-2.2 3.6-6.1 3.6-9.2 0-2.6-1.3-4.4-3.3-4.8-1.8-.4-3.3.5-4.3 2.4Z" /></>,
+  doc: <><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z" /><path d="M14 3v5h5" /><path d="M9 13h6M9 17h6" /></>,
+  building: <><rect x="5" y="3" width="14" height="18" rx="2" /><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2" /></>,
+  globe: <><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.5 3.8 5.6 3.8 9S14.5 18.5 12 21c-2.5-2.5-3.8-5.6-3.8-9S9.5 5.5 12 3Z" /></>,
+  lock: <><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></>,
+  clock: <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></>,
+  star: <path d="m12 4 2.5 5 5.5.8-4 3.9.9 5.5-4.9-2.6-4.9 2.6.9-5.5-4-3.9 5.5-.8Z" />,
+  quote: <><path d="M10 8c-2 1-3 3-3 6v2h5v-5H8.5C8.5 9.5 9 9 10 8Z" /><path d="M19 8c-2 1-3 3-3 6v2h5v-5h-3.5c0-1.5.5-2 1.5-3Z" /></>,
+  plus: <path d="M12 5v14M5 12h14" />,
+  minus: <path d="M5 12h14" />,
+  send: <><path d="M22 2 11 13" /><path d="M22 2 15 22l-4-9-9-4Z" /></>,
+  chevronDown: <path d="m6 9 6 6 6-6" />,
+  chevronRight: <path d="m9 6 6 6-6 6" />,
+  checkCircle: <><circle cx="12" cy="12" r="9" /><path d="m8.5 12 2.5 2.5 4.5-5" /></>,
+  filter: <path d="M4 5h16l-6 7v6l-4 2v-8Z" />,
+  target: <><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1" /></>,
 }
 
 const filled = {

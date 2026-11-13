@@ -16,12 +16,12 @@ export default function ProcessSection() {
         <ol className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {processSteps.map((step, index) => (
             <Reveal as="li" key={step.step} delay={index * 90} className="h-full">
-              <div className="glass relative flex h-full flex-col rounded-3xl p-6 transition-colors hover:border-white/20">
+              <div className="glass relative flex h-full flex-col rounded-3xl p-6 transition-colors hover:border-slate-300">
                 <span className="text-gradient text-4xl font-bold tracking-tight">{step.step}</span>
-                <h3 className="mt-4 text-lg font-semibold text-white">{step.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-400">{step.text}</p>
+                <h3 className="mt-4 text-lg font-semibold text-ink">{step.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{step.text}</p>
                 {index < processSteps.length - 1 && (
-                  <span aria-hidden="true" className="absolute -right-3 top-8 hidden text-xl text-slate-600 lg:block">&rarr;</span>
+                  <span aria-hidden="true" className="absolute -right-3 top-8 hidden text-xl text-slate-400 lg:block">&rarr;</span>
                 )}
               </div>
             </Reveal>

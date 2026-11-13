@@ -1,10 +1,9 @@
 # StackVibe - stackvibe.fyi
 
-Ultra-modern, dark-mode landing page for the **StackVibe** freelance software studio:
-Android apps, desktop SaaS products and websites - built for clients, not placeholders.
+Light, modern marketing site + project-request flow for the **StackVibe** software studio:
+apps, desktop software, web and AI products - built for clients, not placeholders.
 
-Built with **Vite 8 + React 19 + Tailwind CSS v4**. Ships as a fully static site, ready for
-GitHub Pages, Netlify or Cloudflare Pages.
+Built with **Vite 8 + React 19 + Tailwind CSS v4**. Static output, deploys to GitHub Pages.
 
 ---
 
@@ -12,46 +11,55 @@ GitHub Pages, Netlify or Cloudflare Pages.
 
 ```bash
 npm install       # install dependencies
-npm run og        # generate og-image.png + app icons (run once)
+npm run og        # generate og-image.png + app icons
 npm run dev       # local dev server (http://localhost:5173)
 npm run build     # production build -> dist/
 npm run preview   # preview the production build
 ```
 
+## Environment
+
+Copy `.env.example` to `.env.local` and fill the Firebase web config (public values).
+Never commit `.env.local`.
+
+GitHub Actions needs the same 6 values as repository secrets (`VITE_FIREBASE_*`) or the
+production form cannot reach Firestore.
+
 ## Edit content (no code required)
 
-All copy, links and socials live in **`src/data/site.js`**.
+- `src/data/site.js` - brand, nav, hero, services, work, packages, FAQs, audiences, form options.
+- `src/data/pricing.js` - pricing engine: base prices per service, add-ons, timeline factors.
+- `src/lib/estimate.js` - live price range + budget comparison.
 
-- `site` - brand name, domain, contact email, tagline, Formspree endpoint.
-- `hero` - headline, subtitle, CTAs, stats.
-- `services` - the service cards (name, features, CTA).
-- `processSteps` - the workflow steps.
-- `socials` - email, Facebook and Instagram links.
+## Firebase
 
-## Deploy to GitHub Pages
+- Firestore database `(default)` in `europe-west1`.
+- `firestore.rules` - anonymous clients can only create a request; the admin can read/update.
+- Deploy rules: `firebase deploy --only firestore:rules --project stackvibe-901ee`.
+- Grant the admin app access by creating a doc at `admins/<auth-uid>`.
 
-1. Push this repo to GitHub.
-2. Enable Settings > Pages > Source: GitHub Actions.
-3. The `.github/workflows/deploy.yml` workflow builds and deploys on every push to `main`.
-4. For a custom domain: add `stackvibe.fyi` in Pages > Custom domain (the `CNAME` file is included),
-   then point your DNS record to `YOUR_USERNAME.github.io`.
+## Admin app
+
+A Flutter app in `admin/` (iOS + macOS only) reviews requests, budgets and estimates.
+See `admin/README.md`.
 
 ## Project structure
 
 ```
 src/
-  components/     React UI (Header, Hero, Services, Contact, Footer, ...)
-  hooks/          useReveal, useScrollSpy, useScrollLock, useScrolled, usePointerGlow
-  data/site.js    single source of truth for all content
-  pages/          PrivacyPage, NotFoundPage
-  styles/index.css  Tailwind v4 theme tokens + glass/glow utilities
+  components/       React UI (Header, Hero, Services, Work, Pricing, FAQ, RequestWizard, ...)
+  hooks/            useReveal, useScrollSpy, useScrollLock, useScrolled, usePointerGlow
+  data/             site.js (content), pricing.js (price engine)
+  lib/              firebase.js, submitRequest.js, estimate.js
+  pages/            PrivacyPage, NotFoundPage
+  styles/index.css  Tailwind v4 tokens + white glass/gradient utilities
 scripts/
-  generate-og.mjs  sharp -> og-image.png + app icons
-public/            favicon, manifest, robots.txt, sitemap.xml, CNAME
+  generate-og.mjs   sharp -> og-image.png + app icons
+public/             favicon, manifest, robots.txt, sitemap.xml, CNAME
 ```
 
 ---
 
-**Design system:** deep-slate background `#05060b`, cyan-indigo-violet accent gradient,
-glassmorphism cards, glow-on-hover, scroll-reveal animations, and a `prefers-reduced-motion`
-fallback for accessibility.
+**Design system:** white background `#ffffff`, ink `#0b0f17`, hairline borders `#e6e9f0`,
+indigo/violet/cyan accents, white glassmorphism cards, scroll-reveal animations, and a
+`prefers-reduced-motion` fallback for accessibility.

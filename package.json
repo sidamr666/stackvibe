@@ -2,7 +2,7 @@
   "name": "stackvibe",
   "private": true,
   "version": "1.0.0",
-  "description": "StackVibe - independent software studio for Android apps, desktop SaaS and web tools.",
+  "description": "StackVibe - independent software studio for apps, desktop software, web and AI products.",
   "type": "module",
   "homepage": "https://stackvibe.fyi",
   "scripts": {
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.3.0",
+    "firebase": "11.10.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },

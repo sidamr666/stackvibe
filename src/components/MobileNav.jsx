@@ -40,14 +40,14 @@ export default function MobileNav({ open, onClose, activeId }) {
     <div id="mobile-nav" className="lg:hidden" aria-hidden={!open}>
       <div
         onClick={onClose}
-        className={`fixed inset-0 top-16 bg-base-950/70 backdrop-blur-sm transition-opacity duration-300 sm:top-18 ${
+        className={`fixed inset-0 top-16 bg-slate-900/20 backdrop-blur-sm transition-opacity duration-300 sm:top-18 ${
           open ? 'opacity-100' : 'pointer-events-none opacity-0'
         }`}
       />
       <div
         ref={panelRef}
         inert={!open}
-        className={`fixed inset-x-0 top-16 max-h-[calc(100dvh-4rem)] overflow-y-auto border-b border-white/[0.06] bg-base-900/95 px-5 pb-10 pt-3 backdrop-blur-2xl transition-all duration-300 sm:top-18 ${
+        className={`fixed inset-x-0 top-16 max-h-[calc(100dvh-4rem)] overflow-y-auto border-b border-line bg-white/95 px-5 pb-10 pt-3 backdrop-blur-2xl transition-all duration-300 sm:top-18 ${
           open ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-4 opacity-0'
         }`}
       >
@@ -59,12 +59,12 @@ export default function MobileNav({ open, onClose, activeId }) {
               onClick={onClose}
               aria-current={activeId === link.id ? 'page' : undefined}
               className={`flex items-center justify-between rounded-2xl px-4 py-3.5 text-base font-medium transition-colors ${
-                activeId === link.id ? 'bg-white/[0.06] text-white' : 'text-slate-300 hover:bg-white/[0.04] hover:text-white'
+                activeId === link.id ? 'bg-slate-900/[0.05] text-ink' : 'text-slate-600 hover:bg-slate-100 hover:text-ink'
               }`}
               style={{ transitionDelay: open ? `${index * 30}ms` : '0ms' }}
             >
               {link.label}
-              <Icon name="arrowRight" className="size-4 text-slate-500" />
+              <Icon name="arrowRight" className="size-4 text-slate-400" />
             </a>
           ))}
         </nav>
@@ -72,17 +72,17 @@ export default function MobileNav({ open, onClose, activeId }) {
         <a
           href="#contact"
           onClick={onClose}
-          className="mt-5 flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-cyan-400 to-indigo-500 px-4 py-3.5 text-sm font-semibold text-base-950"
+          className="mt-5 flex items-center justify-center gap-2 rounded-2xl bg-slate-900 px-4 py-3.5 text-sm font-semibold text-white"
         >
           Start a project
           <Icon name="arrowRight" className="size-4" />
         </a>
 
-        <div className="mt-8 border-t border-white/[0.06] pt-6">
+        <div className="mt-8 border-t border-line pt-6">
           <div className="flex items-center gap-3">
             <Logo className="size-8" />
             <div>
-              <p className="text-sm font-semibold text-white">StackVibe</p>
+              <p className="text-sm font-semibold text-ink">StackVibe</p>
               <p className="text-xs text-slate-500">Independent software studio</p>
             </div>
           </div>
@@ -94,7 +94,7 @@ export default function MobileNav({ open, onClose, activeId }) {
                 target={social.href.startsWith('http') ? '_blank' : undefined}
                 rel={social.href.startsWith('http') ? 'noreferrer' : undefined}
                 aria-label={social.label}
-                className="grid size-10 place-items-center rounded-xl border border-white/10 bg-white/[0.04] text-slate-300 transition-colors hover:text-white"
+                className="grid size-10 place-items-center rounded-xl border border-line bg-white text-slate-600 transition-colors hover:text-ink"
               >
                 <Icon name={social.icon} className="size-4.5" />
               </a>

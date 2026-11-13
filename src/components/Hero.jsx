@@ -9,17 +9,17 @@ export default function Hero() {
       <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8 lg:px-10">
         <div className="max-w-2xl">
           <Reveal>
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium text-slate-300">
+            <span className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-1.5 text-xs font-medium text-slate-600">
               <span className="relative flex size-2">
-                <span className="absolute inline-flex size-full animate-pulse-ring rounded-full bg-emerald-400" />
-                <span className="relative inline-flex size-2 rounded-full bg-emerald-400" />
+                <span className="absolute inline-flex size-full animate-pulse-ring rounded-full bg-emerald-500" />
+                <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
               </span>
               {hero.eyebrow}
             </span>
           </Reveal>
 
           <Reveal delay={80}>
-            <h1 className="mt-6 text-[2.7rem] font-semibold leading-[1.04] tracking-tight text-white sm:text-6xl lg:text-[4.1rem]">
+            <h1 className="mt-6 text-[2.7rem] font-semibold leading-[1.04] tracking-tight text-ink sm:text-6xl lg:text-[4.1rem]">
               {hero.title}
               <br />
               <span className="text-gradient">{hero.highlight}</span>
@@ -27,21 +27,21 @@ export default function Hero() {
           </Reveal>
 
           <Reveal delay={160}>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-400">{hero.subtitle}</p>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-600">{hero.subtitle}</p>
           </Reveal>
 
           <Reveal delay={240}>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <a
                 href={hero.primaryCta.href}
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 via-indigo-500 to-violet-500 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_16px_40px_-16px_rgba(99,102,241,0.8)] transition-transform hover:-translate-y-0.5"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-slate-900 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-slate-900/10 transition-all hover:-translate-y-0.5 hover:bg-slate-800"
               >
                 {hero.primaryCta.label}
                 <Icon name="arrowRight" className="size-4 transition-transform group-hover:translate-x-0.5" />
               </a>
               <a
                 href={hero.secondaryCta.href}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-6 py-3.5 text-sm font-semibold text-white backdrop-blur transition-colors hover:bg-white/[0.08]"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-line bg-white px-6 py-3.5 text-sm font-semibold text-ink transition-colors hover:bg-slate-50"
               >
                 {hero.secondaryCta.label}
                 <Icon name="arrowRight" className="size-4" />
@@ -52,8 +52,8 @@ export default function Hero() {
           <Reveal delay={320}>
             <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2">
               {hero.badges.map((badge) => (
-                <li key={badge} className="flex items-center gap-2 text-sm text-slate-400">
-                  <Icon name="check" className="size-4 text-emerald-400" />
+                <li key={badge} className="flex items-center gap-2 text-sm text-slate-600">
+                  <Icon name="check" className="size-4 text-emerald-600" />
                   {badge}
                 </li>
               ))}
@@ -61,11 +61,11 @@ export default function Hero() {
           </Reveal>
 
           <Reveal delay={400}>
-            <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.06] sm:grid-cols-4">
+            <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-4">
               {hero.stats.map((stat) => (
-                <div key={stat.label} className="flex flex-col bg-base-900/85 px-5 py-4">
+                <div key={stat.label} className="flex flex-col bg-white px-5 py-4">
                   <dt className="order-2 mt-0.5 text-xs text-slate-500">{stat.label}</dt>
-                  <dd className="order-1 text-2xl font-semibold tracking-tight text-white">{stat.value}</dd>
+                  <dd className="order-1 text-2xl font-semibold tracking-tight text-ink">{stat.value}</dd>
                 </div>
               ))}
             </dl>

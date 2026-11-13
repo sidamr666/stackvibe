@@ -1,11 +1,11 @@
 {
   "name": "StackVibe",
   "short_name": "StackVibe",
-  "description": "Independent software studio building Android apps, desktop SaaS and web tools.",
+  "description": "Independent software studio building apps, desktop software, web and AI products.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#05060b",
-  "theme_color": "#05060b",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
   "icons": [
     { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
